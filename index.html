@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MathSpark｜受験数学・壁打ちトレーニング</title>
+<meta name="description" content="答えを見る前に、最初の一手を考える。高校入試・大学入試のための壁打ち式・受験数学トレーニング。">
+<meta property="og:title" content="MathSpark｜受験数学・壁打ちトレーニング">
+<meta property="og:description" content="AI壁打ち対話・初手フラッシュ・論証デバッグで、受験数学の最初の一手と記述の穴を鍛える。">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://jkj7vv2nd7-lang.github.io/mathspark/">
+<meta property="og:image" content="https://jkj7vv2nd7-lang.github.io/mathspark/og-image.png">
+<link rel="icon" type="image/png" sizes="180x180" href="icon-180.png">
+<link rel="apple-touch-icon" href="icon-180.png">
+<style>
+:root{
+  --navy:#101b3c; --navy2:#1b2d5e; --ink:#17203a; --muted:#5d6880;
+  --gold:#e8a33d; --gold2:#f5c86a; --paper:#fffdf7; --card:#ffffff;
+  --line:#d9deeb; --good:#0d7a55; --goodbg:#e7f7f0; --bad:#b4233a; --badbg:#fdeef1;
+  --warn:#9a6508; --warnbg:#fff4d6; --indigo:#3949b8; --violet:#7047b8; --rose:#b83a55;
+  --radius:20px; --shadow:0 12px 32px rgba(16,27,60,.14);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:"Hiragino Kaku Gothic ProN","Yu Gothic UI","Yu Gothic",Meiryo,sans-serif;color:var(--ink);background:linear-gradient(180deg,#eef1fa 0,#f8f7f1 420px,#f4f1e8 100%);font-size:16px;line-height:1.65}
+button,input,textarea{font:inherit}
+button{cursor:pointer}
+button:focus-visible,a:focus-visible,textarea:focus-visible{outline:3px solid rgba(232,163,61,.75);outline-offset:2px}
+.topbar{position:sticky;top:0;z-index:30;background:rgba(16,27,60,.97);color:#fff;border-bottom:3px solid var(--gold)}
+.topbar-inner{max-width:1220px;margin:0 auto;padding:10px 18px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:11px;font-weight:900;font-size:22px;letter-spacing:.02em;margin-right:auto}
+.brand img{width:42px;height:42px;border-radius:11px}
+.brand small{display:block;font-size:11px;color:#f5c86a;letter-spacing:.14em;font-weight:700;line-height:1.2}
+.top-actions{display:flex;gap:8px;flex-wrap:wrap}
+.btn{border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:999px;padding:10px 17px;font-weight:800;min-height:44px;box-shadow:0 2px 8px rgba(16,27,60,.08)}
+.btn:hover{transform:translateY(-1px)}
+.btn.primary{background:linear-gradient(135deg,var(--gold),#d88b18);border-color:#c67d12;color:#201303}
+.btn.navy{background:var(--navy);color:#fff;border-color:var(--navy)}
+.btn.ghost-dark{background:transparent;color:#fff;border-color:rgba(255,255,255,.45);box-shadow:none}
+.btn.small{padding:7px 13px;min-height:38px;font-size:14px}
+.btn:disabled{opacity:.45;cursor:not-allowed;transform:none}
+.hero{max-width:1220px;margin:0 auto;padding:42px 18px 24px;display:grid;grid-template-columns:minmax(0,1.5fr) minmax(280px,.8fr);gap:24px;align-items:stretch}
+.hero-main{background:radial-gradient(circle at 88% 12%,rgba(232,163,61,.42),transparent 34%),linear-gradient(135deg,var(--navy),var(--navy2) 62%,#2a3f7d);color:#fff;border-radius:30px;padding:38px;box-shadow:var(--shadow);overflow:hidden;position:relative}
+.hero-main:after{content:"Σ  π  √  ∫  ∞";position:absolute;right:22px;bottom:4px;font-family:"Times New Roman",serif;font-size:54px;color:rgba(255,255,255,.08);letter-spacing:.18em}
+.eyebrow{color:var(--gold2);font-weight:900;letter-spacing:.16em;font-size:13px;text-transform:uppercase}
+.hero h1{font-size:clamp(44px,7vw,76px);line-height:1.02;margin:8px 0 12px;letter-spacing:.01em}
+.hero h1 span{color:var(--gold2)}
+.hero .lead{font-size:clamp(18px,2.4vw,24px);font-weight:800;line-height:1.55;max-width:720px}
+.hero p{color:#e8ecff;max-width:700px}
+.hero-buttons{display:flex;gap:11px;flex-wrap:wrap;margin-top:24px;position:relative;z-index:2}
+.hero-card{background:var(--paper);border:1px solid #eadfc6;border-radius:30px;padding:26px;box-shadow:var(--shadow)}
+.hero-card h2{margin:0 0 12px;font-size:21px}
+.hero-card ol{margin:0;padding-left:1.3em}
+.hero-card li{margin:8px 0}
+.version{margin-top:18px;color:var(--muted);font-size:13px}
+.shell{max-width:1220px;margin:0 auto;padding:10px 18px 42px}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:8px 0 16px}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:14px 18px;box-shadow:0 5px 16px rgba(16,27,60,.07)}
+.stat .label{font-size:12px;color:var(--muted);font-weight:800;letter-spacing:.08em}
+.stat .value{font-size:28px;font-weight:950;line-height:1.25}
+.control-card,.panel{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:0 7px 22px rgba(16,27,60,.08)}
+.control-card{padding:18px;margin-bottom:16px}
+.control-label{font-size:12px;font-weight:900;color:var(--muted);letter-spacing:.12em;margin:2px 0 9px}
+.tracks,.modes{display:flex;gap:10px;flex-wrap:wrap}
+.track-btn,.mode-btn{border:2px solid var(--line);background:#fbfbfe;border-radius:16px;padding:12px 18px;font-weight:900;min-height:50px}
+.track-btn.active{background:var(--navy);color:#fff;border-color:var(--navy)}
+.mode-btn{min-width:190px;text-align:left}
+.mode-btn small{display:block;color:var(--muted);font-weight:600;margin-top:2px}
+.mode-btn.active.sparring{border-color:var(--indigo);background:#eef0ff}
+.mode-btn.active.flash{border-color:var(--violet);background:#f4efff}
+.mode-btn.active.debug{border-color:var(--rose);background:#fff0f3}
+.layout{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:16px;align-items:start}
+.panel{padding:22px}
+.panel-head{display:flex;align-items:flex-start;gap:12px;flex-wrap:wrap;border-bottom:1px solid var(--line);padding-bottom:14px;margin-bottom:16px}
+.panel-head h2{margin:0;font-size:25px;line-height:1.35}
+.counter{margin-left:auto;background:#eef1fa;border-radius:999px;padding:5px 12px;font-weight:900;color:var(--navy);white-space:nowrap}
+.badge{display:inline-block;border-radius:999px;padding:3px 10px;background:#fff1d6;color:#7c5005;font-size:12px;font-weight:900}
+.badge.blue{background:#e8ebff;color:#2d3a9f}
+.problem-card{background:var(--paper);border:1.5px solid #e7d9b9;border-radius:18px;padding:20px;font-size:18px;line-height:1.85;margin-bottom:16px}
+.problem-card strong{color:var(--navy)}
+.chat-log{display:flex;flex-direction:column;gap:10px;min-height:190px;max-height:430px;overflow:auto;padding:6px 2px;margin-bottom:14px}
+.bubble{max-width:88%;padding:12px 15px;border-radius:18px;line-height:1.7;box-shadow:0 3px 10px rgba(16,27,60,.07)}
+.bubble.ai{align-self:flex-start;background:#fff;border:1px solid var(--line);border-bottom-left-radius:5px}
+.bubble.user{align-self:flex-end;background:var(--indigo);color:#fff;border-bottom-right-radius:5px}
+.bubble .who{display:block;font-size:11px;font-weight:900;letter-spacing:.08em;opacity:.72;margin-bottom:3px}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
+.chip{border:1.5px solid #bfc7f2;background:#eef0ff;color:#2d3a9f;border-radius:999px;padding:9px 13px;font-weight:800}
+.chip:hover{background:#dde2ff}
+.chat-form{display:flex;gap:9px}
+.chat-form textarea{flex:1;resize:vertical;min-height:52px;max-height:110px;border:1.5px solid var(--line);border-radius:15px;padding:11px 13px}
+.palette{display:flex;gap:6px;flex-wrap:wrap;margin-top:9px}
+.palette button{border:1px solid var(--line);background:#fff;border-radius:9px;padding:5px 10px;font-family:"Times New Roman",serif;font-size:17px}
+.hint-row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:18px 0 10px}
+.hint-box{display:none;background:var(--warnbg);border:1.5px solid #ecd28a;border-radius:15px;padding:14px 16px;line-height:1.8}
+.hint-box.show{display:block}
+.rank-preview{font-weight:900;color:var(--good)}
+.action-row{display:flex;gap:9px;flex-wrap:wrap;margin-top:18px}
+.options{display:grid;grid-template-columns:1fr 1fr;gap:11px}
+.option{text-align:left;border:2px solid var(--line);background:#fff;border-radius:16px;padding:16px;font-weight:750;line-height:1.7;min-height:76px}
+.option:hover{border-color:var(--violet);background:#faf7ff}
+.option.correct{border-color:var(--good);background:var(--goodbg)}
+.option.wrong{border-color:var(--bad);background:var(--badbg)}
+.option:disabled{cursor:default;opacity:.92}
+.timer-wrap{display:flex;align-items:center;gap:13px;margin:14px 0}
+.timer-num{font-size:25px;font-weight:950;min-width:76px}
+.timer-track{height:14px;background:#e8eaf2;border-radius:999px;overflow:hidden;flex:1}
+.timer-bar{height:100%;width:100%;background:linear-gradient(90deg,var(--violet),var(--gold));transition:width .1s linear}
+.combo{font-weight:950;color:var(--violet)}
+.feedback{display:none;border-radius:16px;padding:16px;margin-top:16px;line-height:1.8}
+.feedback.show{display:block}
+.feedback.good{background:var(--goodbg);border:1.5px solid #8fd0b8}
+.feedback.bad{background:var(--badbg);border:1.5px solid #eba7b4}
+.feedback.warn{background:var(--warnbg);border:1.5px solid #ecd28a}
+.lines{display:grid;gap:10px}
+.line-btn{text-align:left;border:2px solid var(--line);background:#fff;border-radius:15px;padding:14px 16px;line-height:1.75;font-weight:650}
+.line-btn:hover{border-color:var(--rose)}
+.line-btn.selected{border-color:var(--rose);background:#fff0f3;box-shadow:0 0 0 3px rgba(184,58,85,.14)}
+.reason-box{display:none;margin-top:16px;border-top:1px solid var(--line);padding-top:16px}
+.reason-box.show{display:block}
+.reason-options{display:grid;gap:9px}
+.correction{display:none;margin-top:16px;background:#f4f7ff;border:1.5px solid #c6cfF5;border-radius:16px;padding:16px}
+.correction.show{display:block}
+.correction textarea{width:100%;min-height:92px;border:1.5px solid var(--line);border-radius:13px;padding:11px 13px;resize:vertical}
+aside{display:grid;gap:16px}
+aside .panel{padding:19px}
+aside h3{margin:0 0 12px;font-size:19px}
+.radar-wrap{text-align:center}
+.radar-wrap svg{max-width:100%;height:auto}
+.radar-label{font-size:12px;font-weight:900;fill:var(--navy)}
+.radar-value{font-size:11px;font-weight:800;fill:var(--muted)}
+.revenge-list,.log-list{display:grid;gap:8px}
+.revenge-item{border:1.5px solid #f0c7cf;background:#fff7f8;border-radius:13px;padding:10px 12px;text-align:left;width:100%;font-weight:750}
+.revenge-item small{display:block;color:var(--muted);font-weight:600}
+.empty{color:var(--muted);background:#f7f8fc;border:1px dashed var(--line);border-radius:13px;padding:12px}
+.log-item{border-bottom:1px solid #edf0f6;padding:8px 2px;display:flex;justify-content:space-between;gap:10px}
+.log-item:last-child{border-bottom:0}
+.log-item small{color:var(--muted)}
+.xp-plus{font-weight:950;color:var(--good);white-space:nowrap}
+.footer-note{max-width:1220px;margin:0 auto;padding:0 18px 34px;color:var(--muted);font-size:13px}
+.math{font-family:"Times New Roman",Times,"Hiragino Mincho ProN",serif;font-size:1.08em;line-height:1.35;overflow-wrap:anywhere}
+.math .var{font-style:italic}
+.math .func,.math .opname{font-style:normal}
+.math .frac{display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;margin:0 .14em;line-height:1.08;font-size:.94em}
+.math .frac>.num{border-bottom:1.6px solid currentColor;padding:0 .2em .04em;text-align:center}
+.math .frac>.den{padding:.04em .2em 0;text-align:center}
+.math .sqrt{display:inline-flex;align-items:flex-start;margin:0 .04em}
+.math .sqrt>.root-symbol{font-size:1.22em;line-height:1;margin-right:-.06em}
+.math .sqrt>.radicand{border-top:1.6px solid currentColor;padding:0 .12em 0 .1em;line-height:1.25}
+.math .bigop{display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;line-height:.82;margin:0 .08em}
+.math .bigop .sym{font-size:1.45em;line-height:.9}
+.math .bigop .upper,.math .bigop .lower{font-size:.68em;line-height:1}
+.math sup,.math sub{font-size:.68em;line-height:0}
+.math .accent{display:inline-flex;flex-direction:column;align-items:center;line-height:.9}
+.math .accent .mark{font-size:.72em;line-height:.55}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}
+@media(max-width:900px){
+  .hero{grid-template-columns:1fr}
+  .layout{grid-template-columns:1fr}
+  .stats{grid-template-columns:repeat(2,1fr)}
+  aside{grid-template-columns:1fr}
+}
+@media(max-width:620px){
+  .hero-main{padding:27px 22px}
+  .panel{padding:17px}
+  .options{grid-template-columns:1fr}
+  .mode-btn{min-width:calc(50% - 6px);flex:1}
+  .track-btn{flex:1}
+  .chat-form{flex-direction:column}
+  .bubble{max-width:96%}
+  .stats{grid-template-columns:1fr 1fr}
+  .problem-card{font-size:16.5px}
+}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand"><img src="icon-180.png" alt=""><div>MathSpark<small>WALL-PRACTICE MATH</small></div></div>
+    <div class="top-actions">
+      <button class="btn ghost-dark small" id="soundToggle" type="button">音：オン</button>
+      <button class="btn ghost-dark small" id="updateBtn" type="button">最新の版に更新する</button>
+    </div>
+  </div>
+</header>
+
+<section class="hero" id="titleScreen">
+  <div class="hero-main">
+    <div class="eyebrow">壁打ちシリーズ 第6弾</div>
+    <h1>Math<span>Spark</span></h1>
+    <div class="lead">答えを見る前に、最初の一手を考える。</div>
+    <p>問題を前に手が止まる瞬間に、台本式コーチと壁打ち。ヒントを少しずつ開き、初手の瞬発力と、記述の穴を見抜く力を鍛えます。</p>
+    <div class="hero-buttons">
+      <button class="btn primary" id="startBtn" type="button">トレーニングを始める</button>
+      <button class="btn" id="heroDebugBtn" type="button">論証デバッグを見る</button>
+    </div>
+  </div>
+  <div class="hero-card">
+    <h2>3つの壁打ち</h2>
+    <ol>
+      <li><strong>AI壁打ち対話</strong>：方針を選ぶと、コーチが次の一手を問いかけます。</li>
+      <li><strong>初手フラッシュ</strong>：8秒で最適な初手を選び、コンボをつなぎます。</li>
+      <li><strong>論証デバッグ</strong>：穴のある行、理由、修正までたどります。</li>
+    </ol>
+    <div class="version">MathSpark ver. <span id="versionText">1.0.0</span><br>対話は収録台本によるスクリプト式です。</div>
+  </div>
+</section>
+
+<main class="shell" id="appMain">
+  <section class="stats" aria-label="学習記録">
+    <div class="stat"><div class="label">XP</div><div class="value" id="xpValue">0</div></div>
+    <div class="stat"><div class="label">連続成功ストリーク</div><div class="value" id="streakValue">0</div></div>
+    <div class="stat"><div class="label">最高コンボ</div><div class="value" id="comboValue">0</div></div>
+    <div class="stat"><div class="label">リベンジ待ち</div><div class="value" id="revengeValue">0</div></div>
+  </section>
+
+  <section class="control-card" aria-label="トラックとモードの選択">
+    <div class="control-label">受験トラック</div>
+    <div class="tracks" id="trackSelector">
+      <button class="track-btn" type="button" data-track="high_school_exam">中学・高校入試</button>
+      <button class="track-btn" type="button" data-track="uni_humanities">大学入試・文系</button>
+      <button class="track-btn" type="button" data-track="uni_science">大学入試・理系</button>
+    </div>
+    <div class="control-label" style="margin-top:18px">トレーニングモード</div>
+    <div class="modes" id="modeSelector">
+      <button class="mode-btn sparring" type="button" data-mode="sparring">AI壁打ち対話<small>ヒントLv.1〜3／S・A・Bランク</small></button>
+      <button class="mode-btn flash" type="button" data-mode="flash">初手フラッシュ<small>8秒／コンボでXPアップ</small></button>
+      <button class="mode-btn debug" type="button" data-mode="debug">論証デバッグ<small>穴の指摘→理由→修正</small></button>
+    </div>
+  </section>
+
+  <div class="layout">
+    <div>
+      <section class="panel mode-view" id="view-sparring">
+        <div class="panel-head"><div><span class="badge blue">台本式コーチ</span><h2>AI壁打ち対話</h2></div><span class="counter" id="spCounter">1 / 7</span></div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px"><span class="badge" id="spUnit"></span><span class="badge blue" id="spLevel"></span><span class="rank-preview" id="spRankPreview"></span></div>
+        <div class="problem-card" id="spProblem"></div>
+        <div class="chat-log" id="spChatLog" aria-live="polite"></div>
+        <div>
+          <strong>思考スタンスを選ぶ</strong>
+          <div class="chips" id="spStances"></div>
+        </div>
+        <form class="chat-form" id="spForm">
+          <textarea id="spInput" placeholder="自分の方針メモを書いてもOKです（例：場合分けして考えます）" aria-label="方針メモ"></textarea>
+          <button class="btn navy" type="submit">コーチへ送る</button>
+        </form>
+        <div class="palette" id="mathPalette" aria-label="数式入力補助"></div>
+        <div class="hint-row"><strong>ヒント：</strong><button class="btn small hint-btn" type="button" data-hint="1">Lv.1 方針の種</button><button class="btn small hint-btn" type="button" data-hint="2">Lv.2 使う定理</button><button class="btn small hint-btn" type="button" data-hint="3">Lv.3 式変形の入口</button></div>
+        <div class="hint-box" id="spHintBox"></div>
+        <div class="action-row"><button class="btn primary" id="spCompleteBtn" type="button">方針が立った・突破する</button><button class="btn" id="spNextBtn" type="button">別の問題へ</button></div>
+      </section>
+
+      <section class="panel mode-view" id="view-flash" hidden>
+        <div class="panel-head"><div><span class="badge blue">方針瞬発力</span><h2>初手フラッシュ</h2></div><span class="counter" id="flCounter">1 / 6</span></div>
+        <div class="timer-wrap"><div class="timer-num" id="flTimer">8.0s</div><div class="timer-track"><div class="timer-bar" id="flTimerBar"></div></div><div class="combo" id="flCombo">コンボ 0</div></div>
+        <div class="problem-card" id="flProblem"></div>
+        <div class="options" id="flOptions"></div>
+        <div class="feedback" id="flFeedback" aria-live="polite"></div>
+        <div class="action-row"><button class="btn" id="flNextBtn" type="button">次の問題へ</button></div>
+      </section>
+
+      <section class="panel mode-view" id="view-debug" hidden>
+        <div class="panel-head"><div><span class="badge blue">記述の穴を撃破</span><h2>論証デバッグ</h2></div><span class="counter" id="dbCounter">1 / 5</span></div>
+        <div class="problem-card" id="dbProblem"></div>
+        <h3>STEP 1：穴のある行を指摘する</h3>
+        <div class="lines" id="dbLines"></div>
+        <div class="feedback" id="dbFeedback" aria-live="polite"></div>
+        <div class="reason-box" id="dbReasonBox">
+          <h3>STEP 2：なぜ穴なのか、理由を選ぶ</h3>
+          <div class="reason-options" id="dbReasons"></div>
+        </div>
+        <div class="correction" id="dbCorrection">
+          <h3>STEP 3：修正する</h3>
+          <div id="dbExplanation"></div>
+          <p><strong>自分の言葉で、正しい進め方を書き直してみましょう。</strong></p>
+          <textarea id="dbCorrectionInput" placeholder="例：文字で割らずに因数分解し、両方の解を確認します"></textarea>
+          <div class="action-row"><button class="btn primary" id="dbFinishBtn" type="button">修正を書いて仕上げる（+10 XP）</button></div>
+        </div>
+        <div class="action-row"><button class="btn" id="dbNextBtn" type="button">次の問題へ</button></div>
+      </section>
+    </div>
+
+    <aside>
+      <section class="panel radar-panel" id="radarPanel">
+        <h3>思考スキル・レーダー</h3>
+        <div class="radar-wrap" id="radarWrap"></div>
+        <p style="color:var(--muted);font-size:13px;margin-bottom:0">各モードの結果で5つの力が少しずつ伸びます。</p>
+      </section>
+      <section class="panel">
+        <h3>誤答リベンジキュー</h3>
+        <div class="revenge-list" id="revengeList"></div>
+      </section>
+      <section class="panel">
+        <h3>学習ログ</h3>
+        <div class="log-list" id="logList"></div>
+        <div class="action-row"><button class="btn small" id="resetBtn" type="button">進捗をリセット</button></div>
+      </section>
+    </aside>
+  </div>
+</main>
+<div class="footer-note">MathSparkは、収録問題と台本による学習アプリです。対話はライブAIではなく、問題ごとに用意されたコーチ台本で進みます。</div>
+
+<script>
+'use strict';
+const APP_VERSION = '1.0.0';
+const PROGRESS_KEY = 'mathspark.progress.v1';
+const MUTED_KEY = 'mathspark.muted.v1';
+const CURRICULUM = {"high_school_exam":{"sparring":[{"unit":"二次関数と図形","level":"難関高校入試","text":"放物線 $y = \\frac{1}{2}x^2$ 上に2点 $A(-2, 2)$ と $B(4, 8)$ がある。$y$ 軸上に点 $P(0, t)$（ただし $t > 0$）をとるとき、$\\triangle PAB$ の面積が $18$ となる $t$ の値を求めよ。","stances":["直線ABの式を求める","等積変形を使う","y軸で三角形を2つに分割する","座標を文字で表す"],"hints":["Lv.1 発想の種: $\\triangle PAB$ をそのまま底辺×高さで求めるのは大変です。$y$ 軸で左右に切ってみましょう。","Lv.2 使う定理: 直線 $AB$ と $y$ 軸の交点を $Q(0, q)$ とおくと、共通の底辺 $PQ$ が使えます！","Lv.3 式変形の入口: 直線 $AB$ は $y = x + 4$ より $Q(0, 4)$。底辺 $PQ = |t - 4|$、高さの和は $2 + 4 = 6$ です。"],"responses":{"直線ABの式を求める":"良いスタートです！直線 $AB$ の式を出すと $y$ 軸との交点 $Q(0,4)$ がわかります。次はどう分割しますか？","等積変形を使う":"点 $P$ が $y$ 軸上にあるので、直線 $AB$ の切片 $Q$ を基準に「$y$ 軸で2つの三角形に分ける」方が速いですよ！","y軸で三角形を2つに分割する":"王道の一手です！共通の底辺は $PQ = |t-4|$ になります。$t>4$ と $0<t<4$ の場合分けに気をつけましょう！","座標を文字で表す":"$P(0, t)$ と $Q(0, 4)$ より $PQ = |t - 4|$ です。絶対値を外す2パターンを式にできますか？"}},{"unit":"平面図形（相似・三平方）","level":"公立上位〜私立","text":"$AB = 6,\\ BC = 8,\\ \\angle B = 90^\\circ$ の直角三角形 $ABC$ の内部に、辺 $AB, BC$ に接し、さらに辺 $AC$ に頂点 $D$ が接する正方形 $BEFD$ を作る。この正方形の1辺の長さを求めよ。","stances":["正方形の1辺をxとおく","相似な三角形を探す","面積の和で方程式を作る","三平方の定理を使う"],"hints":["Lv.1 発想の種: 正方形の1辺を $x$ とおき、残りの線分を $x$ で表しましょう。","Lv.2 使う定理: $\\triangle ADE \\sim \\triangle ABC$ の相似比、または面積分割 $\\triangle ABC = \\triangle ABD + \\triangle BCD$ が使えます。","Lv.3 式変形の入口: $(6 - x) : x = 6 : 8$ を解くだけです！"],"responses":{"正方形の1辺をxとおく":"基本に忠実で素晴らしい！1辺を $x$ とおくと、上の小さな直角三角形と全体の $\\triangle ABC$ の関係が見えますか？","相似な三角形を探す":"大正解！$\\triangle ADE \\sim \\triangle ABC$ の相似比を $x$ で表してみましょう！","面積の和で方程式を作る":"スマートな別解です！対角線 $BD$ を引くと $\\frac{1}{2}\\cdot 6x + \\frac{1}{2}\\cdot 8x = 24$ で一発ですね！","三平方の定理を使う":"$AC=10$ は合っていますが、$x$ だけなら相似か面積分割の方が計算が圧倒的に楽ですよ。"}},{"unit":"円周角と接弦定理","level":"私立上位","text":"円 $O$ の外部の点 $P$ から円に2本の接線 $PA, PB$（接点は $A, B$）を引く。$\\angle APB = 50^\\circ$ のとき、劣弧 $AB$ 上の点 $C$ に対して $\\angle ACB$ の大きさを求めよ。","stances":["中心Oと接点A,Bを結ぶ","四角形PAOBの内角の和を使う","円周角と中心角の関係を使う","円に内接する四角形を作る"],"hints":["Lv.1 発想の種: 接線を見たら「接点と中心を結ぶと $90^\\circ$」をすぐ書き込みましょう。","Lv.2 使う定理: 四角形 $PAOB$ の内角から中心角 $\\angle AOB$ を出し、優弧側の円周角から内接四角形の対角の和 $180^\\circ$ を使います。","Lv.3 式変形の入口: $\\angle AOB = 180^\\circ - 50^\\circ = 130^\\circ$。円周角は $65^\\circ$、その対角なので $180^\\circ - 65^\\circ$ です！"],"responses":{"中心Oと接点A,Bを結ぶ":"鉄則ですね！$\\angle OAP = \\angle OBP = 90^\\circ$ から $\\angle AOB$ がすぐ求まります。","四角形PAOBの内角の和を使う":"素晴らしい！$\\angle AOB = 130^\\circ$ が出たら、点 $C$ が「劣弧 $AB$ 上」にあることに注意しましょう！","円周角と中心角の関係を使う":"半分にして $65^\\circ$ になるのは「優弧側」の円周角です。劣弧側だとどうなりますか？","円に内接する四角形を作る":"優弧上に点 $D$ をとって四角形 $ADBC$ を作る発想、完璧です！対角の和が $180^\\circ$ ですね。"}},{"unit":"空間図形（最短距離）","level":"公立・私立頻出","text":"底面の半径が $3$、母線の長さが $12$ の円錐がある。底面の円周上の点 $A$ から側面を1周して再び $A$ に戻るひもの最短の長さを求めよ。","stances":["展開図（おうぎ形）を描く","中心角を求める","線分で結んで三平方の定理を使う","表面積を計算する"],"hints":["Lv.1 発想の種: 立体表面の最短距離は「展開図を広げて直線で結ぶ」のが絶対ルールです！","Lv.2 使う定理: 円錐の側面の展開図は半径 $12$ のおうぎ形。中心角は $360^\\circ \\times \\frac{\\text{半径}}{\\text{母線}}$ で出ます。","Lv.3 式変形の入口: 中心角は $360^\\circ \\times \\frac{3}{12} = 90^\\circ$！つまり直角二等辺三角形の斜辺を求めればOKです。"],"responses":{"展開図（おうぎ形）を描く":"完璧な初手です！展開図のおうぎ形の半径は $12$ ですね。では中心角は何度になりますか？","中心角を求める":"$\\frac{\\text{底面の半径}}{\\text{母線}} = \\frac{3}{12} = \\frac{1}{4}$ より中心角は $90^\\circ$ です！あとは点 $A$ と $A'$ を結ぶだけですね。","線分で結んで三平方の定理を使う":"中心角が $90^\\circ$ とわかれば、$1:1:\\sqrt{2}$ の直角二等辺三角形で一瞬ですね！","表面積を計算する":"表面積ではなく「ひもの長さ」なので、展開図上の2点を直線で結ぶ方針に切り替えましょう。"}},{"unit":"一次関数（動点と面積）","level":"公立共通〜上位","text":"$AB=4,\\ BC=6$ の長方形 $ABCD$ で、点 $P$ は $B$ を出発し辺上を $B \\to C \\to D$ と毎秒 $1$ の速さで動く。出発から $x$ 秒後の $\\triangle ABP$ の面積 $y$ を、場合分けして式に表せ。","stances":["角を通過する時刻で場合分けする","底辺と高さがどう変わるか追う","グラフの概形を先に描く","x=0から最後まで同じ式にする"],"hints":["Lv.1 発想の種: 点 $P$ が角 $C$ で折れ曲がるので、$C$ に着く前と後で面積の式が変わります。","Lv.2 使う定理: $B \\to C$ は $0 \\leqq x \\leqq 6$、$C \\to D$ は $6 \\leqq x \\leqq 10$ の2区間に分けます。","Lv.3 式変形の入口: $0 \\leqq x \\leqq 6$ では底辺 $BP = x$、高さ $AB = 4$ なので $y = 2x$ です。"],"responses":{"角を通過する時刻で場合分けする":"100点の着眼点！点 $C$ に着くのは $x=6$、点 $D$ に着くのは $x=10$ ですね。","底辺と高さがどう変わるか追う":"$C \\to D$ の区間では、底辺 $AB=4$ に対して高さが常に $BC=6$ で一定になることに気づけましたか？","グラフの概形を先に描く":"面積が一定の割合で増えて、$x=6$ から水平になる台形型のグラフをイメージできると強いですね！","x=0から最後まで同じ式にする":"角を曲がると底辺・高さの関係が変わるので、必ず時刻で場合分けが必要です。"}},{"unit":"確率・場合の数","level":"高校入試標準","text":"袋の中に赤玉 $3$ 個、白玉 $2$ 個が入っている。この袋から同時に $2$ 個の玉を取り出すとき、少なくとも $1$ 個が赤玉である確率を求めよ。","stances":["余事象（すべて白玉）を使う","樹形図・組み合わせを全部数える","赤1白1と赤2に分ける","戻してもう1回引くとして計算"],"hints":["Lv.1 発想の種: 「少なくとも1個」という言葉を見たら、反対の事象（余事象）を考えると超ラクになります！","Lv.2 使う定理: $1 - (\\text{2個とも白玉である確率})$ を計算しましょう。","Lv.3 式変形の入口: 5個から2個選ぶのは ${}_5C_2 = 10$ 通り、白2個から2個選ぶのは $1$ 通りです。"],"responses":{"余事象（すべて白玉）を使う":"鉄則ですね！「少なくとも1個赤」の反対は「2個とも白」。計算は一瞬で終わります！","樹形図・組み合わせを全部数える":"もちろん全10通り書き出しても解けますが、余事象 $1 - \\frac{1}{10}$ と比べるとミスが減りますよ。","赤1白1と赤2に分ける":"丁寧な直接法ですね！${}_3C_1 \\times {}_2C_1 + {}_3C_2 = 6 + 3 = 9$ 通りで一致します。","戻してもう1回引くとして計算":"「同時に2個」なので、同じ玉を2回引くことはありません。組み合わせで分母を $10$ にしましょう。"}},{"unit":"整数・規則性","level":"難関高校入試","text":"自然数 $n$ に対して、$\\sqrt{72n}$ が整数となるような最小の自然数 $n$ と、2番目に小さい自然数 $n$ を求めよ。","stances":["72を素因数分解する","指数がすべて偶数になる条件を作る","2乗の数を順番に当てはめる","72を2で割ってみる"],"hints":["Lv.1 発想の種: ルートが外れる条件は、中身が「何かの2乗」になることです。まず $72$ を分解しましょう。","Lv.2 使う定理: $72 = 2^3 \\times 3^2$。すべての素因数の指数が偶数になればルートが外れます！","Lv.3 式変形の入口: 最小は $n = 2$。2番目に小さいのは $n = 2 \\times 2^2 = 8$ です。"],"responses":{"72を素因数分解する":"大正解！$72 = 2^3 \\times 3^2$ と分解できた時点で勝ちが見えましたね！","指数がすべて偶数になる条件を作る":"完璧です！$2$ の指数が奇数なので最小の $n$ は $2$。では「2番目に小さい $n$」はどう作りますか？","2乗の数を順番に当てはめる":"2番目は $n = 2 \\times k^2$（$k=2$）で作れるので $2 \\times 4 = 8$ になりますね！","72を2で割ってみる":"$72 \\div 2 = 36 = 6^2$ に気づくのも鋭い！素因数分解で一般化できると応用も効きます。"}}],"flash":[{"problem":"連続する2つの奇数の積に $1$ を加えると、ある偶数の2乗になることを証明せよ。","options":[{"text":"2つの奇数を $2n-1, 2n+1$ と文字でおく","correct":true,"reason":"対称性のある $2n-1, 2n+1$ とおくと $(2n-1)(2n+1)+1 = 4n^2 = (2n)^2$ で展開が一瞬です！"},{"text":"具体例 $3 \\times 5 + 1 = 16$ を計算して終了する","correct":false,"reason":"具体例だけでは一般の証明になりません。"},{"text":"奇数を $x, y$ と別々の文字でおく","correct":false,"reason":"「連続する」という条件が式に反映されません。"},{"text":"背理法を使って矛盾を導く","correct":false,"reason":"直接計算で示せる命題です。"}]},{"problem":"大小2つのさいころを同時に投げるとき、出る目の和が $5$ の倍数になる確率を求めよ。","options":[{"text":"和が $5$ または $10$ になる組を書き出す","correct":true,"reason":"目の和は $2 \\sim 12$ なので $5$ の倍数は $5$ と $10$ の2通りだけ。直接数えるのが最速です。"},{"text":"全体の通り数を $21$ 通りとする","correct":false,"reason":"大小の区別があるので分母は $36$ 通りです。"},{"text":"余事象（$5$ の倍数でない場合）を数える","correct":false,"reason":"該当パターンが少ないので直接数える方が速いです。"},{"text":"樹形図を $36$ 通りすべて書く","correct":false,"reason":"条件に合う組だけ拾う方が効率的です。"}]},{"problem":"2次方程式 $x^2 + ax + b = 0$ の2つの解が $3$ と $-5$ であるとき、$a, b$ の値を求めよ。","options":[{"text":"$(x - 3)(x + 5) = 0$ を展開して係数比較する","correct":true,"reason":"解が与えられたら因数分解形 $(x-\\alpha)(x-\\beta)=0$ から逆算するのが最速です！"},{"text":"解の公式に $a, b$ を代入して連立する","correct":false,"reason":"ルートが出て計算が複雑になります。"},{"text":"判別式 $D = a^2 - 4b > 0$ を解く","correct":false,"reason":"具体的な解の値が決まらないため $a, b$ は求まりません。"},{"text":"$x=0$ を代入して $b=0$ とする","correct":false,"reason":"$0$ は解ではないので代入しても意味がありません。"}]},{"problem":"1辺が $6$ の正三角形の面積を求めよ。","options":[{"text":"頂点から垂線を下ろし $1:2:\\sqrt{3}$ の直角三角形を使う","correct":true,"reason":"高さが $3\\sqrt{3}$ と一瞬で出るので、面積は $\\frac{1}{2}\\times 6 \\times 3\\sqrt{3} = 9\\sqrt{3}$ です！"},{"text":"ヘロンの公式に $s=9$ を代入する","correct":false,"reason":"高校範囲の公式であり、$1:2:\\sqrt{3}$ の方がはるかに速いです。"},{"text":"対角線を2本引いてひし形にする","correct":false,"reason":"三角形に対角線はありません。"},{"text":"底辺×高さ÷2を忘れないよう $6\\times 6\\div 2$ とする","correct":false,"reason":"高さは $6$ ではなく $3\\sqrt{3}$ です。"}]},{"problem":"連続する3つの自然数の和が $54$ になるとき、真ん中の数を求めよ。","options":[{"text":"真ん中の数を $x$ とおき、$(x-1)+x+(x+1)=54$ を解く","correct":true,"reason":"真ん中を $x$ にすると $-1$ と $+1$ が打ち消し合い、$3x = 54$ で暗算レベルになります！"},{"text":"一番小さい数を $x$ にして $(x)+(x+1)+(x+2)=54$ を解く","correct":false,"reason":"間違いではないですが、真ん中を $x$ にする方が対称性で速いです。"},{"text":"3つの数を $a, b, c$ とおく","correct":false,"reason":"文字が3つになり連立できません。"},{"text":"$54$ を素因数分解する","correct":false,"reason":"和の問題なので方程式を立てましょう。"}]},{"problem":"食塩水 $200\\text{g}$（濃度 $5\\%$）に食塩を何gか加えて濃度を $10\\%$ にしたい。方程式の立て方は？","options":[{"text":"「食塩の重さ」に着目して $10 + x = 0.10(200 + x)$ と立てる","correct":true,"reason":"食塩水問題は「全体の重さ」と「溶けている食塩の重さ」の保存で式を立てるのが鉄則です！"},{"text":"濃度同士を足して $5 + x = 10$ とする","correct":false,"reason":"濃度（％）をそのまま足し算することはできません。"},{"text":"全体の重さを $200$ のまま $10 + x = 0.10 \\times 200$ とする","correct":false,"reason":"食塩を加えた分、全体の重さも $200 + x$ に増えます！"},{"text":"水の重さだけで比を作る","correct":false,"reason":"濃度計算は「食塩÷全体」の方が圧倒的にミスが減ります。"}]}],"debug":[{"problem":"方程式 $x^2 - 5x = 0$ を解け。","lines":[{"id":1,"text":"1行目: 与式より $x^2 = 5x$","isBug":false},{"id":2,"text":"2行目: 両辺を $x$ で割ると、$x = 5$","isBug":true},{"id":3,"text":"3行目: よって、解は $x = 5$ である。","isBug":false}],"bugLine":2,"reasons":[{"text":"$x = 0$ の可能性があるため、両辺を文字 $x$ で勝手に割ってはいけない（解 $x=0$ が消える）","correct":true},{"text":"移項すると符号が反転して $x^2 = -5x$ になるはずだから","correct":false},{"text":"2次方程式の解は必ず無理数になるから","correct":false}],"explanation":"文字で割るときは「割る数が $0$ でない」確認が必須！正しくは $x(x - 5) = 0$ と因数分解し、$x = 0, 5$ を得ます。"},{"problem":"不等式 $-2x + 6 > 10$ を解け。","lines":[{"id":1,"text":"1行目: $6$ を右辺に移項すると $-2x > 4$","isBug":false},{"id":2,"text":"2行目: 両辺を $-2$ で割ると $x > -2$","isBug":true},{"id":3,"text":"3行目: よって解は $x > -2$ である。","isBug":false}],"bugLine":2,"reasons":[{"text":"負の数 $-2$ で割るときは不等号の向きが逆（$x < -2$）になる","correct":true},{"text":"移項のとき $10 - 6 = -4$ になるべきだから","correct":false},{"text":"不等式では両辺を割ることが禁止されているから","correct":false}],"explanation":"負の数を掛けたり割ったりするとき、不等号の向きは必ず反転します！"},{"problem":"分数の引き算 $\\frac{2x + 1}{3} - \\frac{x - 4}{2}$ を計算せよ。","lines":[{"id":1,"text":"1行目: 分母を $6$ に通分すると $\\frac{2(2x + 1) - 3(x - 4)}{6}$","isBug":false},{"id":2,"text":"2行目: 分子を展開すると $\\frac{4x + 2 - 3x - 12}{6}$","isBug":true},{"id":3,"text":"3行目: 整理して $\\frac{x - 10}{6}$","isBug":false}],"bugLine":2,"reasons":[{"text":"$-3(x - 4)$ を展開するとき、定数項は $(-3)\\times(-4) = +12$ になるはず","correct":true},{"text":"通分するときは分母も $6$ を消してよいから","correct":false},{"text":"$2(2x+1)$ は $4x+1$ になるから","correct":false}],"explanation":"中学生の計算ミスNo.1！分数前のマイナスを後ろの項すべてに分配するのを忘れないようにしましょう。正しくは $\\frac{x + 14}{6}$。"},{"problem":"「$a = b$ ならば $a^2 = b^2$」の逆が成り立つか答えよ。","lines":[{"id":1,"text":"1行目: 逆は「$a^2 = b^2$ ならば $a = b$」である。","isBug":false},{"id":2,"text":"2行目: 両辺の平方根をとると $a = b$ となるため、常に成り立つ。","isBug":true},{"id":3,"text":"3行目: よって逆は真である。","isBug":false}],"bugLine":2,"reasons":[{"text":"$a^2 = b^2$ のとき $a = -b$（例：$a=2, b=-2$）という反例が存在するため偽","correct":true},{"text":"逆の作り方が間違っており「$a \\neq b$ ならば $a^2 \\neq b^2$」だから","correct":false},{"text":"平方根は存在しない数があるから","correct":false}],"explanation":"2乗を外すときは $\\pm$ がつきます！反例 $a=2, b=-2$ を1つ挙げるだけで「偽」と示せます。"},{"problem":"ルートを含む計算 $\\sqrt{(-3)^2}$ の値を求めよ。","lines":[{"id":1,"text":"1行目: $\\sqrt{a^2} = a$ の性質を用いる。","isBug":true},{"id":2,"text":"2行目: $a = -3$ を当てはめると $-3$ となる。","isBug":false}],"bugLine":1,"reasons":[{"text":"$\\sqrt{a^2} = |a|$ であり、$a < 0$ のときは $-a$ となるため正しくは $+3$","correct":true},{"text":"$(-3)^2 = -9$ だから虚数になる","correct":false},{"text":"ルートの記号が外せないから $\\sqrt{9}$ のままにする","correct":false}],"explanation":"$\\sqrt{(-3)^2} = \\sqrt{9} = 3$ です。高校入試でも頻出の絶対値トラップに注意！"}]},"uni_humanities":{"sparring":[{"unit":"数I・2次関数（軸と場合分け）","level":"文系国公立・MARCH/関関同立","text":"$a$ を実数の定数とする。関数 $f(x) = x^2 - 2ax + 3$（$0 \\leqq x \\leqq 2$）の最小値 $m(a)$ を求めよ。","stances":["平方完成して軸の位置を調べる","定義域の端 x=0, 2 を代入する","グラフを描いて軸が動くイメージを持つ","判別式 D を使う"],"hints":["Lv.1 発想の種: 2次関数の最大・最小は「軸の位置」と「定義域 $[0, 2]$」の位置関係で決まります。","Lv.2 使う定理: $f(x) = (x - a)^2 - a^2 + 3$ より軸は $x = a$。定義域の左・中・右で3つに場合分け！","Lv.3 式変形の入口: $a < 0$、$0 \\leqq a \\leqq 2$、$a > 2$ の3通りに分けて計算します。"],"responses":{"平方完成して軸の位置を調べる":"完璧な初手！軸 $x = a$ が定義域 $0 \\leqq x \\leqq 2$ に対してどこにあるかで何通りに場合分けできますか？","定義域の端 x=0, 2 を代入する":"定義域の中に「頂点」が入るときは頂点が最小になります！まず平方完成で軸を出しましょう。","グラフを描いて軸が動くイメージを持つ":"素晴らしい視覚化！境界となる $a$ の値はいくつといくつですか？","判別式 D を使う":"判別式 $D$ は $x$ 軸との交点の個数用です。区間内の最小値は平方完成と軸の位置で調べましょう！"}},{"unit":"数II・対数方程式","level":"共通テスト〜文系二次","text":"方程式 $\\log_2 (x - 1) + \\log_2 (x - 3) = 3$ を解け。","stances":["まず真数条件を確認する","対数の和を積にまとめる","底を2に揃えて指数に直す","とりあえず展開する"],"hints":["Lv.1 発想の種: $\\log$ を見たら計算を始める前に「最初に絶対に確認すべき条件」があります！","Lv.2 使う定理: 真数条件 $x > 3$ を押さえた上で $\\log_2 A + \\log_2 B = \\log_2(AB)$ を使います。","Lv.3 式変形の入口: $(x-1)(x-3) = 8$ を解き、$x > 3$ を満たす解だけを残します。"],"responses":{"まず真数条件を確認する":"100点満点の初手！$x > 3$ を先に書いた上で、左辺の2つの $\\log$ をまとめましょう。","対数の和を積にまとめる":"方針はバッチリ！ただ、まとめる**前**に元の式で必ず確認すべき条件は何でしたか？","底を2に揃えて指数に直す":"右辺の $3$ を $\\log_2 8$ にする見通しも良いですね！真数条件 $x > 3$ を忘れずに。","とりあえず展開する":"焦らず、まず真数条件 $x > 3$ を確認しないと不適な解が混ざりますよ！"}},{"unit":"数II・三角関数の最大最小","level":"文系標準〜難関","text":"$0 \\leqq \\theta < 2\\pi$ のとき、関数 $y = \\sin \\theta + \\sqrt{3}\\cos \\theta$ の最大値と最小値、およびそのときの $\\theta$ を求めよ。","stances":["三角関数の合成を使う","両辺を2乗して関係式を作る","単位円を描いて考える","微分して増減表を書く"],"hints":["Lv.1 発想の種: $\\sin\\theta$ と $\\cos\\theta$ の1次式が足されている形を見たら、1つの $\\sin$ にまとめる必殺技があります！","Lv.2 使う定理: 三角関数の合成 $a\\sin\\theta + b\\cos\\theta = \\sqrt{a^2+b^2}\\sin(\\theta + \\alpha)$ を使います。","Lv.3 式変形の入口: $y = 2\\sin\\left(\\theta + \\frac{\\pi}{3}\\right)$ となり、角の範囲 $\\frac{\\pi}{3} \\leqq \\theta + \\frac{\\pi}{3} < \\frac{7\\pi}{3}$ を調べます。"],"responses":{"三角関数の合成を使う":"即断即決、素晴らしい！係数が $1$ と $\\sqrt{3}$ なので $2\\sin(\\theta + \\frac{\\pi}{3})$ に合成できますね。角度の範囲はどうなりますか？","両辺を2乗して関係式を作る":"2乗すると正負の情報が失われます。1次式は素直に「三角関数の合成」で1つにまとめましょう！","単位円を描いて考える":"合成したあとに $\\theta + \\frac{\\pi}{3}$ の動く範囲を単位円上で確認するのは非常に正確です！","微分して増減表を書く":"文系範囲（数II）では $\\sin$ の微分は使いません。合成一発で解けます！"}},{"unit":"数B・漸化式","level":"共通テスト〜文系二次","text":"$a_1 = 1,\\ a_{n+1} = 3a_n - 4$ で定められる数列 $\\{a_n\\}$ の一般項を求めよ。","stances":["特性方程式 α=3α-4 を解く","a1, a2, a3 を書き出して実験する","階差数列をとってみる","数学的帰納法で予想する"],"hints":["Lv.1 発想の種: $a_{n+1} = p a_n + q$ 型は、定数 $c$ を引いて等比数列の形に持ち込む定番パターンです。","Lv.2 使う定理: 特性方程式 $\\alpha = 3\\alpha - 4$ を解くと $\\alpha = 2$。両辺から $2$ を引いて $a_{n+1} - 2 = 3(a_n - 2)$ と変形します。","Lv.3 式変形の入口: 数列 $\\{a_n - 2\\}$ は初項 $a_1 - 2 = -1$、公比 $3$ の等比数列です！"],"responses":{"特性方程式 α=3α-4 を解く":"王道の一手！$\\alpha = 2$ が求まったので $a_{n+1} - 2 = 3(a_n - 2)$ ですね。初項は何になりますか？","a1, a2, a3 を書き出して実験する":"検算にもなる良い習慣です！$1, -1, -7, -25$ から規則が見えたら特性方程式で証明しましょう。","階差数列をとってみる":"実は $a_{n+2} - a_{n+1} = 3(a_{n+1} - a_n)$ と階差が等比数列になる別解もあります！とても賢い発想です。","数学的帰納法で予想する":"誘導がないなら特性方程式で一撃で解く方が圧倒的に速いですよ。"}},{"unit":"数II・微積分（1/6公式）","level":"文系二次頻出","text":"放物線 $y = x^2 - 2x$ と直線 $y = x + 4$ で囲まれた部分の面積 $S$ を求めよ。","stances":["交点のx座標を求める","1/6公式が使えないか確認する","そのまま定積分を計算する","図を描いて上下関係を確認する"],"hints":["Lv.1 発想の種: 放物線と直線で囲まれた面積は、交点の $x$ 座標 $\\alpha, \\beta$ が出れば最強の時短公式が使えます！","Lv.2 使う定理: $x^2 - 2x = x + 4$ より $(x-4)(x+1)=0$。$\\int_\\alpha^\\beta (x-\\alpha)(x-\\beta)\\,dx = -\\frac{1}{6}(\\beta-\\alpha)^3$ です。","Lv.3 式変形の入口: $\\alpha=-1, \\beta=4$ なので、$S = \\frac{1}{6}(4 - (-1))^3$ で一発計算できます！"],"responses":{"交点のx座標を求める":"まずはそこから！$x^2 - 3x - 4 = 0$ を解くと交点は $-1$ と $4$ ですね。","1/6公式が使えないか確認する":"文系数学の最強兵器ですね！記述試験では $\\int_{-1}^4 \\{(x+4)-(x^2-2x)\\}\\,dx = -\\int_{-1}^4 (x+1)(x-4)\\,dx$ と書いてから $\\frac{1}{6}$ 公式を使うと減点されません。","そのまま定積分を計算する":"もちろん合いますが、分数計算でミスしやすいので $\\frac{1}{6}(4-(-1))^3 = \\frac{125}{6}$ を検算にも使いましょう！","図を描いて上下関係を確認する":"直線が上、放物線が下にあるのを図で確認するのは基本中の基本で素晴らしいです！"}},{"unit":"数C・ベクトル（共線条件）","level":"文系国公立・私大","text":"$\\triangle OAB$ において、辺 $OA$ を $1:2$ に内分する点を $C$、辺 $OB$ を $2:1$ に内分する点を $D$ とし、線分 $AD$ と $BC$ の交点を $P$ とする。$\\vec{OP}$ を $\\vec{OA}=\\vec{a},\\ \\vec{OB}=\\vec{b}$ で表せ。","stances":["PがAD上にある条件を文字sでおく","PがBC上にある条件を文字tでおく","メネラウスの定理を使う","aとbが1次独立であることを使う"],"hints":["Lv.1 発想の種: 「2直線の交点」の位置ベクトルは、2通りの表し方をして係数比較するのが鉄則です！","Lv.2 使う定理: $AP:PD = s:(1-s)$、$BP:PC = t:(1-t)$ とおき、$\\vec{a}, \\vec{b}$ が1次独立（$\\vec{a}\\neq\\vec{0}, \\vec{b}\\neq\\vec{0}$, 平行でない）を使って連立します。","Lv.3 式変形の入口: $\\vec{OP} = (1-s)\\vec{a} + \\frac{2}{3}s\\vec{b} = \\frac{1}{3}t\\vec{a} + (1-t)\\vec{b}$ の係数を比べましょう。"],"responses":{"PがAD上にある条件を文字sでおく":"バッチリ！同じように点 $P$ が線分 $BC$ 上にある条件も文字 $t$ で表せますか？","PがBC上にある条件を文字tでおく":"完璧な流れです！2通りで表したあと、係数比較をする前に書くべき「決まり文句」を覚えていますか？","メネラウスの定理を使う":"実はメネラウスで比 $AP:PD$ を一撃で出す裏ワザもめちゃくちゃ速いです！両方できると最強ですね。","aとbが1次独立であることを使う":"記述で絶対に落とせない一言です！「$\\vec{a}\\neq\\vec{0},\\ \\vec{b}\\neq\\vec{0}$ かつ平行でないから」を忘れずに書けますね！"}},{"unit":"数A・整数（1次不定方程式）","level":"文系標準〜共通テスト","text":"1次不定方程式 $17x + 11y = 1$ の整数解をすべて求めよ。","stances":["特殊解を1つ見つける","ユークリッドの互除法を使う","元の式と特殊解の式を引く","互いに素であることを使う"],"hints":["Lv.1 発想の種: まず $17x + 11y = 1$ を満たす具体的な整数の組 $(x, y)$ を1つ見つけましょう。","Lv.2 使う定理: $(x, y) = (2, -3)$ が見つかります（$34 - 33 = 1$）。元の式から引いて $17(x-2) = -11(y+3)$ にします。","Lv.3 式変形の入口: $17$ と $11$ は「互いに素」なので、$x - 2 = 11k$（$k$ は整数）と置けます！"],"responses":{"特殊解を1つ見つける":"$(2, -3)$ がすぐ見つかれば速いですね！見つかったら元の式と辺々引き算しましょう。","ユークリッドの互除法を使う":"係数が大きいときにも使える王道手法です！$17 = 11\\times 1 + 6,\\ 11 = 6\\times 1 + 5,\\ 6 = 5\\times 1 + 1$ から逆算できます。","元の式と特殊解の式を引く":"定数 $1$ が消えて $17(x-2) = -11(y+3)$ になりますね。次に使うべき整数の性質は何ですか？","互いに素であることを使う":"記述の必須条件！「$17$ と $11$ は互いに素であるから $x-2 = 11k$」と書ければ満点です！"}}],"flash":[{"problem":"関数 $y = x^3 - 3x^2 + 2$ について、接線の傾きが最小になる点を求めよ。","options":[{"text":"導関数 $y' = 3x^2 - 6x$ を求めて平方完成する","correct":true,"reason":"接線の傾き＝導関数 $y'$ なので、$y'$ を2次関数と見て平方完成すれば最小値が求まります！"},{"text":"$y = 0$ となる $x$ を因数定理で探す","correct":false,"reason":"それは $x$ 軸との交点です。"},{"text":"不定積分 $\\int y\\,dx$ を計算する","correct":false,"reason":"傾きを求めるのは微分です。"},{"text":"判別式 $D > 0$ を解く","correct":false,"reason":"傾きの最小値とは無関係です。"}]},{"problem":"$x > 0$ のとき、$x + \\frac{9}{x}$ の最小値を求めよ。","options":[{"text":"相加平均と相乗平均の大小関係を使う","correct":true,"reason":"正の数の和で「積が定数になる形」を見たら、相加相乗平均 $a+b \\geqq 2\\sqrt{ab}$ が最速です（等号成立確認も忘れずに）！"},{"text":"平方完成する","correct":false,"reason":"分数関数なので平方完成はできません。"},{"text":"判別式 $D \\geqq 0$ を使う","correct":false,"reason":"$y = x + \\frac{9}{x}$ とおいて2次方程式にする手もありますが、相加相乗の方が一瞬です。"},{"text":"$x = 1$ を代入する","correct":false,"reason":"最小値をとるのは $x = \\frac{9}{x}$ すなわち $x = 3$ のときです。"}]},{"problem":"$\\triangle ABC$ で $a = 5,\\ b = 7,\\ c = 8$ のとき、$\\cos B$ の値を求めよ。","options":[{"text":"余弦定理 $\\cos B = \\frac{c^2 + a^2 - b^2}{2ca}$ を使う","correct":true,"reason":"3辺がすべてわかっているときの角は余弦定理一択です！"},{"text":"正弦定理 $\\frac{b}{\\sin B} = 2R$ を使う","correct":false,"reason":"外接円の半径 $R$ や他の角がわかっていないため使えません。"},{"text":"三平方の定理で直角を確認する","correct":false,"reason":"$5^2+7^2 \\neq 8^2$ なので直角三角形ではありません。"},{"text":"ヘロンの公式で面積を出してから逆算する","correct":false,"reason":"遠回りすぎます。余弦定理なら1行です。"}]},{"problem":"実数 $x, y$ について「$xy = 0$」は「$x = 0$」であるための何条件か？","options":[{"text":"$xy=0 \\Rightarrow x=0$ は偽（$x=1, y=0$）、逆は真なので「必要条件」","correct":true,"reason":"矢印の向き $\\Leftarrow$ のみ成り立つので、左は右の必要条件です！"},{"text":"同値なので「必要十分条件」","correct":false,"reason":"$y=0$ でも $xy=0$ になるため同値ではありません。"},{"text":"$xy=0 \\Rightarrow x=0$ なので「十分条件」","correct":false,"reason":"$x=1, y=0$ という反例があります。"},{"text":"どちらでもないので「どちらでもない」","correct":false,"reason":"$x=0 \\Rightarrow xy=0$ は確実に成り立ちます。"}]},{"problem":"等差数列の初項から第 $10$ 項までの和が $100$、初項から第 $20$ 項までの和が $400$ のとき、一般項を求めよ。","options":[{"text":"初項 $a$、公差 $d$ として和の公式 $\\frac{n}{2}\\{2a+(n-1)d\\}$ で連立する","correct":true,"reason":"等差数列の条件が2つあれば、未知数 $a, d$ の連立1次方程式で確実に解けます！"},{"text":"等比数列の和の公式 $a\\frac{r^n-1}{r-1}$ を使う","correct":false,"reason":"問題文は「等差数列」です。"},{"text":"$S_{20} - S_{10} = 300$ だから公差は $30$ とする","correct":false,"reason":"それは第11項〜第20項の和であり、公差ではありません。"},{"text":"漸化式 $a_{n+1} = 2a_n$ を立てる","correct":false,"reason":"等差数列の漸化式は $a_{n+1} - a_n = d$ です。"}]},{"problem":"放物線 $y = x^2 - 4x + 5$ の頂点から $x$ 軸までの距離ではなく、直線 $y = 2x - 5$ との距離の最小値を求めよ。","options":[{"text":"直線と平行な接線（傾き $2$）を放物線に引き、接点と直線の距離を求める","correct":true,"reason":"放物線上の点と直線の最短距離は「傾きが同じ接線の接点」で実現します！"},{"text":"放物線の頂点 $(2, 1)$ と直線の距離を点と直線の距離公式で出す","correct":false,"reason":"直線は傾いているため、頂点が一番近いとは限りません。"},{"text":"連立方程式 $x^2 - 4x + 5 = 2x - 5$ を解く","correct":false,"reason":"交点が存在しない（$D<0$）ため距離が求まります。"},{"text":"$x=0$ を代入して $y$ 切片同士の差をとる","correct":false,"reason":"最短距離は斜めの垂線距離です。"}]}],"debug":[{"problem":"不等式 $\\log_{\\frac{1}{2}} (2x - 1) > \\log_{\\frac{1}{2}} (x + 2)$ を解け。","lines":[{"id":1,"text":"1行目: 真数条件より $2x - 1 > 0$ かつ $x + 2 > 0$、よって $x > \\frac{1}{2}$","isBug":false},{"id":2,"text":"2行目: 底が $\\frac{1}{2}$ で共通なので、真数を比較して $2x - 1 > x + 2$","isBug":true},{"id":3,"text":"3行目: これを解いて $x > 3$。真数条件と合わせて $x > 3$","isBug":false}],"bugLine":2,"reasons":[{"text":"底が $0 < \\frac{1}{2} < 1$ なので、真数を比較するとき不等号の向きが逆（$2x - 1 < x + 2$）になる","correct":true},{"text":"真数条件は $2x - 1 \\geqq 0$ と等号を含むべきだから","correct":false},{"text":"底を $2$ に変換できないから","correct":false}],"explanation":"対数不等式最大のトラップ！底が $1$ より小さいときは減少関数になるため、不等号が反転し $\\frac{1}{2} < x < 3$ が正解です。"},{"problem":"方程式 $\\sqrt{x + 2} = x$ を解け。","lines":[{"id":1,"text":"1行目: 両辺を2乗すると $x + 2 = x^2$","isBug":false},{"id":2,"text":"2行目: 整理して $(x - 2)(x + 1) = 0$","isBug":false},{"id":3,"text":"3行目: よって解は $x = -1, 2$ である。","isBug":true}],"bugLine":3,"reasons":[{"text":"2乗は同値変形ではないため、右辺 $x \\geqq 0$ の確認が必要で $x = -1$ は不適（無縁解）","correct":true},{"text":"因数分解が $(x+2)(x-1)=0$ になるはずだから","correct":false},{"text":"ルートの中身は $x > 2$ でなければならないから","correct":false}],"explanation":"両辺2乗は「必要条件」への変形です。$sqrt{x+2} geqq 0$ より $x geqq 0$ が必須なので、$x = 2$ のみが正解です！"},{"problem":"定数 $a$ に対して方程式 $ax = 2$ を解け。","lines":[{"id":1,"text":"1行目: 両辺を $a$ で割る。","isBug":true},{"id":2,"text":"2行目: よって解は $x = \\frac{2}{a}$ である。","isBug":false}],"bugLine":1,"reasons":[{"text":"$a = 0$ の場合と $a \\neq 0$ の場合分けが抜けており、$a=0$ のときは解なしになる","correct":true},{"text":"両辺に $a$ を掛けて $x = 2a$ とすべきだから","correct":false},{"text":"$a$ は自然数と決まっているから","correct":false}],"explanation":"文字係数の方程式では「係数が $0$ のとき」を必ず場合分けします！"},{"problem":"2次方程式 $x^2 + 2kx + k + 2 = 0$ が異なる2つの正の解をもつような $k$ の範囲を求めよ。","lines":[{"id":1,"text":"1行目: 異なる2つの実数解をもつので判別式 $D/4 = k^2 - k - 2 > 0$","isBug":false},{"id":2,"text":"2行目: 2つの解の積が正なので、解と係数の関係より $k + 2 > 0$","isBug":true},{"id":3,"text":"3行目: よって $-2 < k < -1$ または $k > 2$","isBug":false}],"bugLine":2,"reasons":[{"text":"積が正（$\\alpha\\beta > 0$）だけでは「2つとも負の解」も含まれてしまうため、和 $\\alpha+\\beta = -2k > 0$ の条件が抜けている","correct":true},{"text":"判別式は $D \\geqq 0$ にすべきだから","correct":false},{"text":"解と係数の関係で積は $-k-2$ だから","correct":false}],"explanation":"2つの正の解をもつ条件は「① $D>0$、② 和 $>0$、③ 積 $>0$」の3点セット！和 $>0$（$k<0$）が抜けると大減点です。"},{"problem":"$a > 0,\\ b > 0$ のとき、$a + \\frac{1}{b}$ と $b + \\frac{4}{a}$ の積 $(a+\\frac{1}{b})(b+\\frac{4}{a})$ の最小値を求めよ。","lines":[{"id":1,"text":"1行目: 相加・相乗平均より $a + \\frac{1}{b} \\geqq 2\\sqrt{\\frac{a}{b}}$","isBug":false},{"id":2,"text":"2行目: 同様に $b + \\frac{4}{a} \\geqq 2\\sqrt{\\frac{4b}{a}}$。これらを掛けて最小値は $8$。","isBug":true}],"bugLine":2,"reasons":[{"text":"それぞれの等号成立条件（$ab=1$ と $ab=4$）が同時に成り立たないため、掛けて最小値を出してはいけない","correct":true},{"text":"相加相乗平均の右辺に $2$ は不要だから","correct":false},{"text":"$a, b$ が実数なので負になることもあるから","correct":false}],"explanation":"超有名な引っ掛け問題！先にカッコを展開して $ab + \\frac{4}{ab} + 5$ にしてから相加相乗を使うと、最小値は $2\\sqrt{4} + 5 = 9$ になります。"}]},"uni_science":{"sparring":[{"unit":"数III・定積分で表された関数","level":"理系国公立・難関私大","text":"等式 $f(x) = \\sin x + \\int_0^{\\frac{\\pi}{2}} f(t)\\cos t\\,dt$ を満たす関数 $f(x)$ を求めよ。","stances":["定積分の部分を定数 k とおく","両辺を x で微分する","部分積分を実行する","x = 0 を代入してみる"],"hints":["Lv.1 発想の種: 積分区間が定数 $[0, \\frac{\\pi}{2}]$ なので、この積分全体は単なる定数になります。","Lv.2 使う定理: $\\int_0^{\\frac{\\pi}{2}} f(t)\\cos t\\,dt = k$ とおくと $f(x) = \\sin x + k$。","Lv.3 式変形の入口: $f(t) = \\sin t + k$ を $k$ の定義式に代入して $k$ の1次方程式を解きます。"],"responses":{"定積分の部分を定数 k とおく":"理系数学の鉄則、一撃ですね！$f(x) = \\sin x + k$ を元の定積分の式に戻すとどうなりますか？","両辺を x で微分する":"積分区間に $x$ がないので微分すると定積分が $0$ で消えてしまいます！定数 $k$ とおくのが正解です。","部分積分を実行する":"$f(t)$ が未知なのでそのままでは進みません。積分全体を定数 $k$ とおきましょう！","x = 0 を代入してみる":"区間が定数なので、積分そのものを文字 $k$ とおく方が直接解けますよ。"}},{"unit":"数III・極限（はさみうち）","level":"理系標準〜難関","text":"極限 $\\lim_{x \\to \\infty} \\frac{\\sin x}{x}$ および $\\lim_{x \\to 0} \\frac{\\sin 3x}{x}$ をそれぞれ求めよ。","stances":["はさみうちの原理を使う","公式 sinθ/θ → 1 に形を合わせる","ロピタルの定理を使う","グラフを描く"],"hints":["Lv.1 発想の種: $x \\to \\infty$ のとき $\\sin x$ は振動しますが、$-1 \\leqq \\sin x \\leqq 1$ で抑えられます。","Lv.2 使う定理: 前半ははさみうちの原理、後半は $\\lim_{\\theta\\to 0}\\frac{\\sin\\theta}{\\theta}=1$ を使います。","Lv.3 式変形の入口: 後半は $\\frac{\\sin 3x}{3x} \\times 3$ と角を揃えます。"],"responses":{"はさみうちの原理を使う":"前半（$x \\to \\infty$）にドンピシャ！$-\\frac{1}{x} \\leqq \\frac{\\sin x}{x} \\leqq \\frac{1}{x}$ で挟めますね。","公式 sinθ/θ → 1 に形を合わせる":"後半（$x \\to 0$）の王道です！極限は $3$ ですね。前半にこの公式を使えない理由は言えますか？","ロピタルの定理を使う":"検算には使えますが、入試記述では無断使用を避け、はさみうち＋基本公式で書きましょう。","グラフを描く":"減衰振動のイメージは完璧です。あとは不等式で挟むだけです！"}},{"unit":"数C・複素数平面（軌跡）","level":"理系国公立・難関私大","text":"複素数 $z$ が $|z - 2| = 1$ を満たしながら動くとき、$w = \\frac{z}{z - 1}$ が描く図形を求めよ。","stances":["z = (wの式) に変形して代入する","z = x + yi と実部・虚部でおく","共役複素数を使って展開する","アポロニウスの円を探す"],"hints":["Lv.1 発想の種: $w$ の軌跡を求めたいときは、元の条件 $|z-2|=1$ に代入できるよう「$z =$ 〇〇」の形に逆解きします！","Lv.2 使う定理: $w(z - 1) = z \\Rightarrow (w - 1)z = w$ より $z = \\frac{w}{w - 1}$（ただし $w \\neq 1$）を代入します。","Lv.3 式変形の入口: $\\left|\\frac{w}{w-1} - 2\\right| = 1 \\Rightarrow |2 - w| = |w - 1|$ となり、垂直二等分線が見えてきます！"],"responses":{"z = (wの式) に変形して代入する":"複素数平面の軌跡問題の王道中の王道！$z = \\frac{w}{w-1}$ を代入したとき、分母 $w-1=0$ の除外点チェックは大丈夫ですか？","z = x + yi と実部・虚部でおく":"座標計算でも解けますが、計算量がかなり増えます。まずは複素数のまま $z = \\frac{w}{w-1}$ と解く方が圧倒的に綺麗ですよ！","共役複素数を使って展開する":"$|2 - w| = |w - 1|$ まで整理できれば、2乗して展開しなくても幾何的意味（2点 $1, 2$ からの等距離＝垂直二等分線）で一撃です！","アポロニウスの円を探す":"係数が $1:1$ なので円ではなく直線（垂直二等分線）になりますね。幾何的に見抜くセンスは素晴らしいです！"}},{"unit":"数III・媒介変数曲線の面積","level":"理系典型・頻出","text":"媒介変数表示 $x = t - \\sin t,\\ y = 1 - \\cos t$（$0 \\leqq t \\leqq 2\\pi$）で表されるサイクロイド曲線と $x$ 軸で囲まれた部分の面積 $S$ を求めよ。","stances":["S = ∫ y (dx/dt) dt を立てる","tを消去して y = f(x) にする","dx/dt の符号（xの増減）を確認する","半角の公式で次数下げをする"],"hints":["Lv.1 発想の種: 媒介変数曲線の面積は $S = \\int y\\,dx$ の $dx$ を $\\frac{dx}{dt}\\,dt$ に置換積分します。","Lv.2 使う定理: $\\frac{dx}{dt} = 1 - \\cos t \\geqq 0$ なので $x$ は単調増加。よって $S = \\int_0^{2\\pi} (1 - \\cos t)^2\\,dt$ です。","Lv.3 式変形の入口: $\\cos^2 t = \\frac{1 + \\cos 2t}{2}$ を使って次数下げするか、ウォリス積分的な対称性を使います！"],"responses":{"S = ∫ y (dx/dt) dt を立てる":"完璧な初手！積分区間が $t: 0 \\to 2\\pi$ で $x$ が増加していること（$\\frac{dx}{dt} \\geqq 0$）も確認できますか？","tを消去して y = f(x) にする":"サイクロイドは $t$ を初等関数で消去できません！媒介変数のまま置換積分しましょう。","dx/dt の符号（xの増減）を確認する":"記述の重要ポイント！$1 - \\cos t \\geqq 0$ を明記することで、面積がそのまま $\\int_0^{2\\pi} y\\frac{dx}{dt}dt$ で出せる根拠になります。","半角の公式で次数下げをする":"被積分関数を展開して $1 - 2\\cos t + \\cos^2 t$ が出てきたら、半角の公式で次数下げですね。計算ミスなく進められます！"}},{"unit":"数III・回転体の体積（バウムクーヘン/置換）","level":"難関理系","text":"曲線 $y = \\sin x$（$0 \\leqq x \\leqq \\pi$）と $x$ 軸で囲まれた図形を、$y$ 軸のまわりに1回転してできる立体の体積 $V$ を求めよ。","stances":["横切り（yに垂直な断面）で考える","バウムクーヘン積分を使う","π∫y^2 dx を使う","対称性で2倍にする"],"hints":["Lv.1 発想の種: $y$ 軸回転なので、基本は $V = \\pi \\int_0^1 (x_2^2 - x_1^2)\\,dy$（横切り）です。","Lv.2 使う定理: $x_1 + x_2 = \\pi$ の対称性を使うと $x_2^2 - x_1^2 = \\pi(\\pi - 2x_1)$ となり、$y = \\sin x_1$ で置換積分（$dy = \\cos x_1\\,dx_1$）できます！","Lv.3 式変形の入口: 置換後は $\\pi^2 \\int_0^{\\pi/2} (\\pi - 2x)\\cos x\\,dx$（またはバウムクーヘン $2\\pi \\int_0^\\pi x\\sin x\\,dx$ で検算）になります。"],"responses":{"横切り（yに垂直な断面）で考える":"記述入試で最も安全な正攻法！$y = \\sin x$ を満たす2つの $x$（$x_1 < x_2$）の和が $\\pi$ になる対称性を使えますか？","バウムクーヘン積分を使う":"検算用として最強（$2\\pi \\int_0^\\pi x\\sin x\\,dx = 2\\pi^2$）です！記述本番では横切り＋置換積分で書けると完璧に安全です。","π∫y^2 dx を使う":"それは $x$ 軸回転の公式です！今回は「$y$ 軸回転」なので注意しましょう。","対称性で2倍にする":"$x = \\frac{\\pi}{2}$ に関して対称ですが、$y$ 軸回転なので内側の半径 $x_1$ と外側の半径 $x_2$ の差（ドーナツ型）になりますよ！"}},{"unit":"数III・微分（接線の本数）","level":"理系国公立定番","text":"点 $(1, a)$ から曲線 $y = x e^{-x}$ に異なる接線がちょうど $2$ 本引けるような定数 $a$ の値の範囲を求めよ。","stances":["接点のx座標を t とおいて接線を作る","接線が点(1,a)を通る式を a=(tの式) にする","f(x)のグラフの凹凸を調べる","判別式 D>0 を使う"],"hints":["Lv.1 発想の種: 「接線の本数」は「接点の個数」に言い換えるのが絶対ルールです！","Lv.2 使う定理: 接点を $(t, t e^{-t})$ とおいて接線の方程式を作り、$(1, a)$ を代入して $a = g(t)$ の形に定数分離します。","Lv.3 式変形の入口: $a = (t^2 - t + 1)e^{-t}$ のような $t$ の関数 $g(t)$ を微分し、増減表と極限（$t \\to \\pm\\infty$）からグラフと直線 $y=a$ の交点が2個になる範囲を読み取ります！"],"responses":{"接点のx座標を t とおいて接線を作る":"100点の初手！曲線上にない点から引く接線は、必ず接点 $t$ を主役にして式を立てます。","接線が点(1,a)を通る式を a=(tの式) にする":"定数分離まで見えているのは素晴らしい！$a = g(t)$ の増減表を書いたあと、$t \\to \\infty$ の極限（漸近線）のチェックを忘れないでくださいね。","f(x)のグラフの凹凸を調べる":"変曲点の個数と接線の本数も関係しますが、今回は $a = g(t)$ の定数分離でグラフの共有点の個数を見る方が確実です。","判別式 D>0 を使う":"2次関数ではないため判別式は使えません。接点 $t$ の方程式の実数解の個数に帰着させましょう！"}},{"unit":"数A・B・確率漸化式","level":"難関理系・京大/東工大定番","text":"数直線の原点にある点 $P$ が、1秒ごとに確率 $\\frac{1}{2}$ で $+1$ 進み、確率 $\\frac{1}{2}$ で原点に戻る試行を繰り返す。$n$ 秒後に点 $P$ が座標 $0$ にある確率 $p_n$ を求めよ。","stances":["n秒後とn+1秒後の状態遷移を描く","余事象 (1 - p_n) を使う","2項定理で直接計算する","漸化式 p_{n+1} = ... を立てる"],"hints":["Lv.1 発想の種: $n$ 秒後の各状態から $n+1$ 秒後に「原点に戻る」遷移を矢印で描いてみましょう！","Lv.2 使う定理: 実は座標が $0$ にあっても $0$ 以外にあっても、次の1秒で確率 $\\frac{1}{2}$ で原点に戻ります！","Lv.3 式変形の入口: つまり $p_{n+1} = \\frac{1}{2} p_n + \\frac{1}{2} (1 - p_n) = \\frac{1}{2}$ という超シンプルな関係が見えます！"],"responses":{"n秒後とn+1秒後の状態遷移を描く":"確率漸化式の王道！原点にいる場合と、原点以外にいて戻る場合の両方を矢印で追えると一瞬で見抜けます。","余事象 (1 - p_n) を使う":"原点以外のどこにいても、戻る確率は $\\frac{1}{2}$ なので、$(1 - p_n)$ とひとまとめにできるのが美しいですね！","2項定理で直接計算する":"直前の1回の結果だけで原点に戻るかどうかが決まるので、漸化式の方が圧倒的に楽ですよ！","漸化式 p_{n+1} = ... を立てる":"$p_{n+1} = \\frac{1}{2}p_n + \\frac{1}{2}(1-p_n)$ を整理すると驚きの結果になります。$n \\geqq 1$ ですべて同じ値になりますね！"}}],"flash":[{"problem":"媒介変数表示 $x = t - \\sin t,\\ y = 1 - \\cos t$（$0 \\leqq t \\leqq 2\\pi$）の面積を求めよ。","options":[{"text":"$\\int_0^{2\\pi} y \\frac{dx}{dt}\\,dt$ の置換積分形を立てる","correct":true,"reason":"媒介変数曲線の面積は $dx = \\frac{dx}{dt}dt$ に変換して $t$ の積分に帰着させます！"},{"text":"$t$ を消去して $y = f(x)$ にする","correct":false,"reason":"初等関数で $t$ を消去できません。"},{"text":"回転体の公式 $\\pi \\int y^2\\,dx$ を使う","correct":false,"reason":"体積ではなく面積です。"},{"text":"曲線の長さ公式を使う","correct":false,"reason":"弧長ではなく面積です。"}]},{"problem":"極限 $\\lim_{n \\to \\infty} \\frac{1}{n} \\sum_{k=1}^n \\sqrt{1 + \\frac{k}{n}}$ を求めよ。","options":[{"text":"区分求積法 $\\int_0^1 \\sqrt{1 + x}\\,dx$ に変換する","correct":true,"reason":"$\\frac{1}{n}\\sum f(\\frac{k}{n})$ の形を見たら区分求積法 $\\int_0^1 f(x)\\,dx$ 一択です！"},{"text":"等比数列の和の公式を使う","correct":false,"reason":"ルートが含まれており等比数列ではありません。"},{"text":"分母分子を $n$ で割って $0$ にする","correct":false,"reason":"項数が $n$ 個（$\\infty$ 個）あるため $0 \\times \\infty$ の不定形になります。"},{"text":"はさみうちの原理で $1$ とする","correct":false,"reason":"各項は $1$ より大きいため極限は $1$ ではありません。"}]},{"problem":"微分可能な関数 $f(x)$ に対し、$lim_{h \\to 0} \\frac{f(a + 2h) - f(a - h)}{h}$ を $f'(a)$ で表せ。","options":[{"text":"分子に $-f(a) + f(a)$ を補って微分係数の定義に合わせる","correct":true,"reason":"$\\frac{f(a+2h)-f(a)}{2h}\\cdot 2 + \\frac{f(a-h)-f(a)}{-h}$ に分けると $3f'(a)$ と一発で出ます！"},{"text":"そのまま $h=0$ を代入して $0$ とする","correct":false,"reason":"$\\frac{0}{0}$ の不定形なので代入できません。"},{"text":"ロピタルの定理で分子を $a$ で微分する","correct":false,"reason":"変数は $h$ なので $a$ で微分すると誤りです。"},{"text":"$f(a+2h) = f(a) + f(2h)$ と分解する","correct":false,"reason":"一般の関数は線形ではありません。"}]},{"problem":"楕円 $\\frac{x^2}{4} + \\frac{y^2}{9} = 1$ 上の点 $(x_1, y_1)$ における接線の方程式は？","options":[{"text":"$\\frac{x_1 x}{4} + \\frac{y_1 y}{9} = 1$（2乗を1つだけ接点に変える）","correct":true,"reason":"2次曲線の接線は $x^2 \\to x_1 x,\\ y^2 \\to y_1 y$ と置き換えるだけで一瞬で書けます！"},{"text":"$x$ で陰関数微分してから $y=mx+n$ に直す","correct":false,"reason":"間違いではないですが、公式なら1秒で済みます。"},{"text":"$\\frac{x}{4} + \\frac{y}{9} = 1$ とする","correct":false,"reason":"接点 $(x_1, y_1)$ の情報が抜けています。"},{"text":"接線の傾きを $\\frac{9}{4}$ とする","correct":false,"reason":"傾きは接点の位置によって変わります。"}]},{"problem":"複素数 $z$ を原点まわりに $+\\frac{\\pi}{3}$ 回転し、大きさを $2$ 倍した複素数を表す式は？","options":[{"text":"$2\\left(\\cos\\frac{\\pi}{3} + i\\sin\\frac{\\pi}{3}\\right) z$ を掛ける","correct":true,"reason":"回転と拡大は極形式 $r(\\cos\\theta + i\\sin\\theta)$ の掛け算で一撃です！"},{"text":"$z + 2\\left(\\cos\\frac{\\pi}{3} + i\\sin\\frac{\\pi}{3}\\right)$ を足す","correct":false,"reason":"足し算は回転ではなく「平行移動」になります。"},{"text":"$z$ を $2$ 乗して $\\frac{\\pi}{3}$ を足す","correct":false,"reason":"2乗すると偏角も2倍になってしまいます。"},{"text":"共役複素数 $\\bar{z}$ を掛ける","correct":false,"reason":"$\\bar{z}$ は実軸対称の移動に関係します。"}]},{"problem":"定積分 $\\int_0^1 \\frac{1}{1 + x^2}\\,dx$ を求めよ。","options":[{"text":"$x = \\tan\\theta$（$-\\frac{\\pi}{2} < \\theta < \\frac{\\pi}{2}$）と置換積分する","correct":true,"reason":"$\\frac{1}{1+x^2}$ を見たら $x = \\tan\\theta$ の置換積分が絶対の定石です（答えは $\\frac{\\pi}{4}$）！"},{"text":"$\\log(1 + x^2)$ に積分する","correct":false,"reason":"分子に $2x$ がないため $\\log$ にはなりません！"},{"text":"部分分数分解をする","correct":false,"reason":"$1+x^2$ は実数範囲で因数分解できません。"},{"text":"$x = \\sin\\theta$ と置換する","correct":false,"reason":"$\\sqrt{1-x^2}$ のときは $\\sin\\theta$、$\\frac{1}{1+x^2}$ のときは $\\tan\\theta$ です！"}]}],"debug":[{"problem":"極限 $\\lim_{x \\to -\\infty} \\left(\\sqrt{x^2 + 2x} + x\\right)$ を求めよ。","lines":[{"id":1,"text":"1行目: 分子の有理化を行うと $\\frac{2x}{\\sqrt{x^2 + 2x} - x}$","isBug":false},{"id":2,"text":"2行目: 分母・分子を $x$ で割るため $\\sqrt{x^2 + 2x} = x\\sqrt{1 + \\frac{2}{x}}$ と変形する","isBug":true},{"id":3,"text":"3行目: $x \\to -\\infty$ より極限値は $\\frac{2}{1 - 1}$ となり発散する","isBug":false}],"bugLine":2,"reasons":[{"text":"$x \\to -\\infty$ のとき $x < 0$ なので、$\\sqrt{x^2} = |x| = -x$ となり符号がマイナスになる","correct":true},{"text":"有理化の符号が $+x$ のままになるはずだから","correct":false},{"text":"$\\frac{2}{x}$ は $x \\to -\\infty$ で $1$ に収束するから","correct":false}],"explanation":"理系受験生が最もやりがちな符号ミス！$x < 0$ の極限では $\\sqrt{x^2} = -x$ となるため、正解は $\\frac{2}{-1 - 1} = -1$ に収束します。"},{"problem":"定積分 $\\int_{-1}^1 \\frac{1}{x^2}\\,dx$ を計算せよ。","lines":[{"id":1,"text":"1行目: $\\frac{1}{x^2} = x^{-2}$ なので原始関数は $-\\frac{1}{x}$ である。","isBug":false},{"id":2,"text":"2行目: よって $\\left[-\\frac{1}{x}\\right]_{-1}^1 = (-1) - (1) = -2$","isBug":true}],"bugLine":2,"reasons":[{"text":"被積分関数 $\\frac{1}{x^2}$ は $x = 0$ で不連続（発散）であり、区間 $[-1, 1]$ でそのまま定積分できない","correct":true},{"text":"$x^{-2}$ の積分は $\\log|x|$ になるから","correct":false},{"text":"正の関数の積分なので偶関数として $2\\int_0^1$ にすれば $-4$ になるから","correct":false}],"explanation":"正の関数を積分したのに答えが負（$-2$）になる時点で異常に気づくべき！$x=0$ で定義されていない広義積分は発散します。"},{"problem":"関数 $f(x) = x^3$ は $x = 0$ で極値をもつか調べよ。","lines":[{"id":1,"text":"1行目: $f'(x) = 3x^2$ より $f'(0) = 0$ である。","isBug":false},{"id":2,"text":"2行目: $f'(0) = 0$ となるため、$x = 0$ で極小値 $0$ をとる。","isBug":true}],"bugLine":2,"reasons":[{"text":"$f'(0) = 0$ であっても、$x=0$ の前後で $f'(x)$ の符号が正から正へ変化しないため極値をもたない","correct":true},{"text":"2階微分 $f''(0) = 0$ だから極大値になるはず","correct":false},{"text":"3次関数は絶対に極値を2つもつから","correct":false}],"explanation":"$f'(a)=0$ は極値をもつための必要条件にすぎません！必ず「増減表で符号が入れ替わること」を確認しましょう。"},{"problem":"無限級数 $\\sum_{n=1}^{\\infty} \\frac{n}{2n+1}$ の収束・発散を調べよ。","lines":[{"id":1,"text":"1行目: 一般項を $a_n = \\frac{n}{2n+1}$ とおく。","isBug":false},{"id":2,"text":"2行目: $\\lim_{n\\to\\infty} a_n = \\frac{1}{2}$ なので、この無限級数は $\\frac{1}{2}$ に収束する。","isBug":true}],"bugLine":2,"reasons":[{"text":"一般項の極限が $0$ でない（$\\lim a_n = \\frac{1}{2} \\neq 0$）ため、級数は発散する","correct":true},{"text":"部分分数分解をすると $\\frac{1}{4}$ に収束するから","correct":false},{"text":"項がすべて正なので必ず収束するから","correct":false}],"explanation":"「数列の極限」と「無限級数の和」を混同する定番ミス！級数が収束するには $\\lim_{n\\to\\infty} a_n = 0$ が必要条件です。"},{"problem":"以下の主張とその証明について、誤りがある箇所を指摘しなさい。\n\n主張： 複素数 $z$ について、$z^2 = \\bar{z}^2$ ならば $z$ は実数である。","lines":[{"id":1,"text":"1行目: $z = x + yi$ ($x, y$ は実数) とおく。","isBug":false},{"id":2,"text":"2行目: $z^2 = (x+yi)^2 = x^2 - y^2 + 2xyi$ であり、$\\bar{z}^2 = (x-yi)^2 = x^2 - y^2 - 2xyi$ である。条件 $z^2 = \\bar{z}^2$ より、$x^2 - y^2 + 2xyi = x^2 - y^2 - 2xyi$ が成り立つ。","isBug":false},{"id":3,"text":"3行目: この式を整理すると、$4xyi = 0$ となり、$4i \\neq 0$ であるから、$xy = 0$ を得る。","isBug":false},{"id":4,"text":"4行目: $xy = 0$ より $y = 0$ である。したがって、$z = x$ となり、$z$ は実数である。","isBug":true}],"bugLine":4,"reasons":[{"text":"$xy=0$ は $x=0$ または $y=0$ を意味するが、$y=0$ と断定している点が誤り。","correct":true},{"text":"$z=x+yi$ とおくとき、$x, y$ は実数であるという前提があるため、$xy=0$ から $y=0$ を導くのが自然であり、問題ない。","correct":false},{"text":"$z^2 = \\bar{z}^2$ という条件から $z$ が実数であることを示すには、もっと複雑な計算が必要であり、4行目のような簡単な結論は出せない。","correct":false}],"explanation":"4行目の「$xy=0$ より $y=0$ である」という論証が誤りです。$xy=0$ は「$x=0$ または $y=0$」を意味します。したがって、$y=0$ と断定することはできません。 $y=0$ の場合、$z=x$ となり $z$ は実数ですが、$x=0$ の場合、$z=yi$ となり、$y \\neq 0$ であれば $z$ は純虚数となります。例えば、$z=i$ の場合を考えてみましょう。$z^2 = i^2 = -1$ であり、$\\bar{z} = -i$ なので $\\bar{z}^2 = (-i)^2 = -1$ となり、$z^2 = \\bar{z}^2$ は成立します。しかし、$z=i$ は実数ではありません。したがって、この主張は誤りで、正しい結論は「$z$ は実数または純虚数」です。"}]}};
+const TRACK_LABELS = {high_school_exam:'中学・高校入試', uni_humanities:'大学入試・文系', uni_science:'大学入試・理系'};
+const MODE_LABELS = {sparring:'AI壁打ち対話', flash:'初手フラッシュ', debug:'論証デバッグ'};
+const RADAR_LABELS = ['方針発想力','論証・場合分け','計算・式変形','誘導読解力','初手瞬発力'];
+
+// === Pure Logic Begin ===
+function rankForHints(hintsUsed){ return hintsUsed <= 0 ? 'S' : hintsUsed === 1 ? 'A' : 'B'; }
+function xpForRank(rank){ return rank === 'S' ? 50 : rank === 'A' ? 30 : 15; }
+function xpForFlash(remainingSeconds, comboBefore){
+  const speedBonus = Math.max(0, Math.min(15, Math.ceil(remainingSeconds * 2)));
+  const comboBonus = Math.min(20, Math.max(0, comboBefore) * 5);
+  return 20 + speedBonus + comboBonus;
+}
+function radarPoints(values, cx=170, cy=142, radius=92){
+  return values.map((value, i) => {
+    const angle = -Math.PI/2 + i * Math.PI*2/values.length;
+    const r = radius * Math.max(0, Math.min(100, value)) / 100;
+    return [cx + Math.cos(angle)*r, cy + Math.sin(angle)*r];
+  });
+}
+function queueKey(track, mode, index){ return `${track}:${mode}:${index}`; }
+function addRevenge(queue, item){
+  const key = queueKey(item.track, item.mode, item.index);
+  if (queue.some(q => queueKey(q.track,q.mode,q.index) === key)) return queue.slice();
+  return queue.concat([{track:item.track, mode:item.mode, index:item.index, label:item.label, addedAt:item.addedAt || Date.now()}]);
+}
+function removeRevenge(queue, track, mode, index){
+  const key = queueKey(track, mode, index);
+  return queue.filter(q => queueKey(q.track,q.mode,q.index) !== key);
+}
+function shuffleArray(arr, rand = Math.random){
+  const out = arr.slice();
+  for (let i = out.length - 1; i > 0; i--) {
+    const j = Math.floor(rand() * (i + 1));
+    [out[i], out[j]] = [out[j], out[i]];
+  }
+  return out;
+}
+// === Pure Logic End ===
+
+function defaultState(){
+  return {
+    version: APP_VERSION, xp:0, streak:0, bestCombo:0, combo:0,
+    radar:[45,45,45,45,45], revenge:[], logs:[],
+    track:'high_school_exam', mode:'sparring',
+    indices:{high_school_exam:{sparring:0,flash:0,debug:0},uni_humanities:{sparring:0,flash:0,debug:0},uni_science:{sparring:0,flash:0,debug:0}},
+    completed:{}
+  };
+}
+function loadState(){
+  try {
+    const raw = localStorage.getItem(PROGRESS_KEY);
+    if (!raw) return defaultState();
+    const parsed = JSON.parse(raw);
+    const base = defaultState();
+    return {...base, ...parsed, indices:{...base.indices, ...(parsed.indices || {})}, radar:Array.isArray(parsed.radar) && parsed.radar.length===5 ? parsed.radar : base.radar};
+  } catch(e) { return defaultState(); }
+}
+let state = loadState();
+let muted = false;
+try { muted = localStorage.getItem(MUTED_KEY) === '1'; } catch(e) {}
+let session = {currentSparring:null, currentFlash:null, currentDebug:null, sparringIndex:0, flashIndex:0, debugIndex:0, hintsUsed:0, sparringDone:false, flashAnswered:false, flashTimer:null, flashRemaining:8, debugLine:null, debugReasonDone:false, debugFinished:false, debugWrongLines:0};
+const $ = id => document.getElementById(id);
+function saveState(){ try { localStorage.setItem(PROGRESS_KEY, JSON.stringify(state)); } catch(e) {} }
+function saveMuted(){ try { localStorage.setItem(MUTED_KEY, muted ? '1' : '0'); } catch(e) {} }
+
+// ---------- Textbook math renderer ----------
+function escapeHtml(s){ return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+const TEX_COMMANDS = {
+  alpha:'α', beta:'β', theta:'θ', pi:'π', infty:'∞', triangle:'△', angle:'∠', cdot:'·', times:'×', div:'÷',
+  leqq:'≦', geqq:'≧', neq:'≠', sim:'∼', pm:'±', to:'→', Rightarrow:'⇒', Leftarrow:'⇐', circ:'°'
+};
+const TEX_FUNCTIONS = new Set(['sin','cos','tan','log','lim']);
+function readGroup(s, i){
+  if (s[i] !== '{') return null;
+  let depth=0;
+  for (let j=i; j<s.length; j++){
+    if (s[j]==='\\') { j++; continue; }
+    if (s[j]==='{') depth++;
+    if (s[j]==='}') { depth--; if (depth===0) return {content:s.slice(i+1,j), next:j+1}; }
+  }
+  return {content:s.slice(i+1), next:s.length};
+}
+function readArg(s, i){
+  while (s[i]===' ') i++;
+  if (s[i]==='{') { const g=readGroup(s,i); return {content:g.content, next:g.next, grouped:true}; }
+  if (s[i]==='\\') {
+    let j=i+1; while (j<s.length && /[a-zA-Z]/.test(s[j])) j++;
+    return {content:s.slice(i,j), next:j, grouped:false};
+  }
+  return {content:s[i] || '', next:i+1, grouped:false};
+}
+function parseTex(s, start=0, stopAtBrace=false){
+  let out='', i=start;
+  while (i<s.length){
+    const ch=s[i];
+    if (ch==='}' && stopAtBrace) break;
+    if (ch==='{') { const g=readGroup(s,i); out += parseTex(g.content,0,false); i=g.next; continue; }
+    if (ch==='}') { i++; continue; }
+    if (ch==='^' || ch==='_') {
+      const tag = ch==='^' ? 'sup' : 'sub';
+      const arg=readArg(s,i+1);
+      out += `<${tag}>${parseTex(arg.content,0,false)}</${tag}>`;
+      i=arg.next; continue;
+    }
+    if (ch==='\\') {
+      let j=i+1; while (j<s.length && /[a-zA-Z]/.test(s[j])) j++;
+      const cmd=s.slice(i+1,j);
+      if (cmd==='frac') {
+        const a=readArg(s,j), b=readArg(s,a.next);
+        out += `<span class="frac"><span class="num">${parseTex(a.content)}</span><span class="den">${parseTex(b.content)}</span></span>`;
+        i=b.next; continue;
+      }
+      if (cmd==='sqrt') {
+        const a=readArg(s,j);
+        out += `<span class="sqrt"><span class="root-symbol">√</span><span class="radicand">${parseTex(a.content)}</span></span>`;
+        i=a.next; continue;
+      }
+      if (cmd==='text') {
+        const a=readArg(s,j);
+        out += `<span class="func">${escapeHtml(a.content)}</span>`;
+        i=a.next; continue;
+      }
+      if (cmd==='bar' || cmd==='vec') {
+        const a=readArg(s,j);
+        const mark = cmd==='bar' ? '‾' : '→';
+        out += `<span class="accent"><span class="mark">${mark}</span><span>${parseTex(a.content)}</span></span>`;
+        i=a.next; continue;
+      }
+      if (cmd==='sum' || cmd==='int') {
+        let lower='', upper='', k=j;
+        while (s[k]==='_' || s[k]==='^') {
+          const isLower=s[k]==='_'; const a=readArg(s,k+1);
+          if (isLower) lower=parseTex(a.content); else upper=parseTex(a.content);
+          k=a.next;
+        }
+        const sym = cmd==='sum' ? '∑' : '∫';
+        out += `<span class="bigop"><span class="upper">${upper}</span><span class="sym">${sym}</span><span class="lower">${lower}</span></span>`;
+        i=k; continue;
+      }
+      if (cmd==='lim') {
+        let lower='', k=j;
+        if (s[k]==='_') { const a=readArg(s,k+1); lower=parseTex(a.content); k=a.next; }
+        out += `<span class="bigop"><span class="sym func" style="font-size:1em">lim</span><span class="lower">${lower}</span></span>`;
+        i=k; continue;
+      }
+      if (cmd==='left' || cmd==='right') { i=j; continue; }
+      if (TEX_FUNCTIONS.has(cmd)) { out += `<span class="func">${cmd}</span>`; i=j; continue; }
+      if (TEX_COMMANDS[cmd]) { out += escapeHtml(TEX_COMMANDS[cmd]); i=j; continue; }
+      out += escapeHtml(cmd); i=j; continue;
+    }
+    if (/[0-9]/.test(ch)) {
+      let j=i; while (j<s.length && /[0-9.,]/.test(s[j])) j++;
+      out += escapeHtml(s.slice(i,j)); i=j; continue;
+    }
+    if (/[a-zA-Z]/.test(ch)) {
+      let j=i; while (j<s.length && /[a-zA-Z]/.test(s[j])) j++;
+      const word=s.slice(i,j);
+      if (TEX_FUNCTIONS.has(word)) out += `<span class="func">${word}</span>`;
+      else out += [...word].map(letter => `<span class="var">${letter}</span>`).join('');
+      i=j; continue;
+    }
+    if (ch==='\n') out += '<br>';
+    else out += escapeHtml(ch);
+    i++;
+  }
+  return out;
+}
+function renderRich(el, text){
+  const parts = String(text).split('$');
+  el.innerHTML = parts.map((part, idx) => idx % 2 === 1 ? `<span class="math">${parseTex(part)}</span>` : escapeHtml(part).replace(/\n/g,'<br>')).join('');
+}
+function renderInto(el, text){ renderRich(el, text); }
+
+// ---------- Sound ----------
+let audioCtx=null;
+function tone(freq, delay=0, duration=.16){
+  if (muted) return;
+  try {
+    audioCtx = audioCtx || new (window.AudioContext || window.webkitAudioContext)();
+    const t = audioCtx.currentTime + delay;
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+    osc.type='triangle'; osc.frequency.setValueAtTime(freq,t);
+    gain.gain.setValueAtTime(.5,t);
+    gain.gain.exponentialRampToValueAtTime(.001,t+duration);
+    osc.connect(gain); gain.connect(audioCtx.destination);
+    osc.start(t); osc.stop(t+duration+.02);
+  } catch(e) {}
+}
+function playSuccess(){ tone(1318.5,0,.15); tone(1568,.09,.18); tone(1975.5,.18,.22); }
+function playError(){ tone(1174.7,0,.16); tone(1046.5,.1,.2); }
+function playClick(){ tone(1318.5,0,.07); }
+function updateSoundButton(){ $('soundToggle').textContent = muted ? '音：オフ' : '音：オン'; }
+
+// ---------- Progress UI ----------
+function bumpSkill(index, amount){ state.radar[index] = Math.max(0, Math.min(100, state.radar[index] + amount)); }
+function addLog(label, detail, xp){
+  state.logs.unshift({label, detail, xp, at:new Date().toLocaleString('ja-JP',{month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit'})});
+  state.logs = state.logs.slice(0,8);
+}
+function award(xp, label, detail){
+  state.xp += xp; state.streak += 1; addLog(label, detail, xp); saveState(); updateStats(); drawRadar(); renderRevenge(); renderLogs(); playSuccess();
+}
+function failAttempt(){ state.streak=0; state.combo=0; saveState(); updateStats(); playError(); }
+function updateStats(){
+  $('xpValue').textContent = state.xp;
+  $('streakValue').textContent = state.streak;
+  $('comboValue').textContent = state.bestCombo;
+  $('revengeValue').textContent = state.revenge.length;
+  $('flCombo').textContent = `コンボ ${state.combo}`;
+}
+function drawRadar(){
+  const cx=170, cy=142, radius=92;
+  const rings=[1,.75,.5,.25].map(f => radarPoints([100,100,100,100,100],cx,cy,radius*f).map(p=>p.map(n=>n.toFixed(1)).join(',')).join(' '));
+  const pts=radarPoints(state.radar,cx,cy,radius);
+  const pointText=pts.map(p=>p.map(n=>n.toFixed(1)).join(',')).join(' ');
+  const labelPos=radarPoints([118,118,118,118,118],cx,cy,radius);
+  const valuePos=radarPoints(state.radar,cx,cy,radius);
+  $('radarWrap').innerHTML = `<svg viewBox="0 0 340 292" role="img" aria-label="思考スキルレーダーチャート">
+    ${rings.map(r=>`<polygon points="${r}" fill="none" stroke="#d9deeb" stroke-width="1"/>`).join('')}
+    ${pts.map(p=>`<line x1="${cx}" y1="${cy}" x2="${p[0]}" y2="${p[1]}" stroke="#e3e7f2"/>`).join('')}
+    <polygon points="${pointText}" fill="rgba(232,163,61,.30)" stroke="#c67d12" stroke-width="3" stroke-linejoin="round"/>
+    ${pts.map(p=>`<circle cx="${p[0]}" cy="${p[1]}" r="4.5" fill="#101b3c" stroke="#fff" stroke-width="2"/>`).join('')}
+    ${RADAR_LABELS.map((label,i)=>`<text class="radar-label" x="${labelPos[i][0]}" y="${labelPos[i][1]}" text-anchor="middle" dominant-baseline="middle">${label}</text><text class="radar-value" x="${valuePos[i][0]}" y="${valuePos[i][1]-13}" text-anchor="middle">${state.radar[i]}</text>`).join('')}
+  </svg>`;
+}
+function currentList(mode){ return CURRICULUM[state.track][mode]; }
+function currentIndex(mode){ return state.indices[state.track][mode] % currentList(mode).length; }
+function itemLabel(mode, item){
+  if (mode==='sparring') return item.unit;
+  if (mode==='flash') return item.problem.replace(/\$/g,'').slice(0,42);
+  return item.problem.replace(/\$/g,'').slice(0,42);
+}
+function enqueueRevenge(mode, index){
+  const item=currentList(mode)[index];
+  state.revenge=addRevenge(state.revenge,{track:state.track,mode,index,label:itemLabel(mode,item)});
+  saveState(); updateStats(); renderRevenge();
+}
+function clearRevenge(mode,index){ state.revenge=removeRevenge(state.revenge,state.track,mode,index); saveState(); updateStats(); renderRevenge(); }
+function renderRevenge(){
+  const box=$('revengeList');
+  if (!state.revenge.length){ box.innerHTML='<div class="empty">いまのリベンジ待ちはありません。間違えた問題がここにたまります。</div>'; return; }
+  box.innerHTML='';
+  state.revenge.forEach(q=>{
+    const b=document.createElement('button'); b.type='button'; b.className='revenge-item';
+    b.innerHTML=`${escapeHtml(q.label)}<small>${TRACK_LABELS[q.track]}／${MODE_LABELS[q.mode]}</small>`;
+    b.addEventListener('click',()=>{ state.track=q.track; state.indices[q.track][q.mode]=q.index; setTrack(q.track); setMode(q.mode); $('appMain').scrollIntoView({behavior:'smooth'}); });
+    box.appendChild(b);
+  });
+}
+function renderLogs(){
+  const box=$('logList');
+  if (!state.logs.length){ box.innerHTML='<div class="empty">まだ記録がありません。最初の突破を目指しましょう。</div>'; return; }
+  box.innerHTML=state.logs.map(log=>`<div class="log-item"><div>${escapeHtml(log.label)}<br><small>${escapeHtml(log.detail)}・${escapeHtml(log.at)}</small></div><div class="xp-plus">+${log.xp} XP</div></div>`).join('');
+}
+
+// ---------- Navigation ----------
+function setTrack(track){
+  state.track=track; saveState();
+  document.querySelectorAll('.track-btn').forEach(b=>b.classList.toggle('active',b.dataset.track===track));
+  loadMode(state.mode);
+}
+function setMode(mode){
+  state.mode=mode; saveState();
+  document.querySelectorAll('.mode-btn').forEach(b=>b.classList.toggle('active',b.dataset.mode===mode));
+  ['sparring','flash','debug'].forEach(m=>{ $('view-'+m).hidden = m!==mode; });
+  loadMode(mode);
+}
+function loadMode(mode){
+  if (mode==='sparring') loadSparring();
+  if (mode==='flash') loadFlash();
+  if (mode==='debug') loadDebug();
+}
+
+// ---------- Sparring ----------
+function appendBubble(sender, text){
+  const log=$('spChatLog');
+  const div=document.createElement('div'); div.className='bubble '+sender;
+  div.innerHTML=`<span class="who">${sender==='ai'?'コーチ':'あなた'}</span><span class="bubble-body"></span>`;
+  renderRich(div.querySelector('.bubble-body'), text);
+  log.appendChild(div); log.scrollTop=log.scrollHeight;
+}
+function updateRankPreview(){
+  const rank=rankForHints(session.hintsUsed);
+  $('spRankPreview').textContent=`現在：${session.hintsUsed===0?'ノーヒント':session.hintsUsed+'ヒント'} ${rank}ランク圏内（+${xpForRank(rank)} XP）`;
+}
+function loadSparring(){
+  const idx=currentIndex('sparring'); session.sparringIndex=idx; session.hintsUsed=0; session.sparringDone=false;
+  const p=currentList('sparring')[idx]; session.currentSparring=p;
+  $('spCounter').textContent=`${idx+1} / ${currentList('sparring').length}`;
+  $('spUnit').textContent=p.unit; $('spLevel').textContent=p.level;
+  renderRich($('spProblem'), p.text);
+  $('spChatLog').innerHTML='';
+  appendBubble('ai','まずは答えを出そうとせず、問題文を見て最初に思い浮かんだ「方針」や「気になる条件」を教えてください。下の思考スタンスから選んでもOKです。');
+  const chips=$('spStances'); chips.innerHTML='';
+  p.stances.forEach(stance=>{
+    const b=document.createElement('button'); b.type='button'; b.className='chip'; b.textContent=stance;
+    b.addEventListener('click',()=>handleSparringTurn(stance)); chips.appendChild(b);
+  });
+  $('spHintBox').className='hint-box'; $('spHintBox').innerHTML='';
+  $('spCompleteBtn').disabled=false;
+  updateRankPreview();
+}
+function coachFallback(msg){
+  if (msg.includes('場合分け') || msg.includes('真数') || msg.includes('≠') || msg.includes('≧') || msg.includes('範囲')) { bumpSkill(1,2); return '鋭いチェックです！その条件・場合分けを意識できているのは大きなアドバンテージですね。具体的に境界となる値はいくつになりますか？'; }
+  if (msg.includes('グラフ') || msg.includes('図') || msg.includes('判別式')) { bumpSkill(0,2); return '視覚化・道具選びの方向性が見えてきましたね。式に落とし込むと、最初の一行はどう書けそうですか？'; }
+  bumpSkill(3,1);
+  return 'なるほど、その視点は大事です。では今の考えを式や条件にするとき、「まだ使っていない問題文の条件」や「文字の範囲」に抜け漏れはないか確認してみましょう。方針が固まったら「方針が立った・突破する」を押してください。';
+}
+function handleSparringTurn(msg){
+  msg=String(msg||'').trim(); if (!msg) return;
+  appendBubble('user', msg);
+  const p=session.currentSparring;
+  setTimeout(()=>{
+    if (p.responses && Object.prototype.hasOwnProperty.call(p.responses,msg)) { bumpSkill(0,2); bumpSkill(3,1); appendBubble('ai', p.responses[msg]); }
+    else appendBubble('ai', coachFallback(msg));
+    saveState(); drawRadar(); playClick();
+  },240);
+}
+
+// ---------- Flash ----------
+function stopFlashTimer(){ if (session.flashTimer) clearInterval(session.flashTimer); session.flashTimer=null; }
+function loadFlash(){
+  stopFlashTimer();
+  const idx=currentIndex('flash'); session.flashIndex=idx; session.flashAnswered=false; session.flashRemaining=8;
+  const baseItem=currentList('flash')[idx];
+  const item={...baseItem, options:shuffleArray(baseItem.options)}; session.currentFlash=item;
+  $('flCounter').textContent=`${idx+1} / ${currentList('flash').length}`;
+  renderRich($('flProblem'), item.problem);
+  $('flFeedback').className='feedback'; $('flFeedback').innerHTML='';
+  const box=$('flOptions'); box.innerHTML='';
+  item.options.forEach((option,i)=>{
+    const b=document.createElement('button'); b.type='button'; b.className='option';
+    renderRich(b, option.text);
+    b.addEventListener('click',()=>handleFlashAnswer(i)); box.appendChild(b);
+  });
+  updateStats();
+  const tick=()=>{
+    session.flashRemaining=Math.max(0, session.flashRemaining-.1);
+    $('flTimer').textContent=session.flashRemaining.toFixed(1)+'s';
+    $('flTimerBar').style.width=(session.flashRemaining/8*100)+'%';
+    if (session.flashRemaining<=0){ stopFlashTimer(); if (!session.flashAnswered) handleFlashTimeout(); }
+  };
+  $('flTimer').textContent='8.0s'; $('flTimerBar').style.width='100%';
+  session.flashTimer=setInterval(tick,100);
+}
+function markFlashOptions(chosenIndex){
+  [...$('flOptions').children].forEach((b,i)=>{ b.disabled=true; const correct=session.currentFlash.options[i].correct; if (correct) b.classList.add('correct'); if (i===chosenIndex && !correct) b.classList.add('wrong'); });
+}
+function handleFlashAnswer(i){
+  if (session.flashAnswered) return; session.flashAnswered=true; stopFlashTimer(); markFlashOptions(i);
+  const item=session.currentFlash, chosen=item.options[i], fb=$('flFeedback');
+  if (chosen.correct){
+    const xp=xpForFlash(session.flashRemaining, state.combo);
+    state.combo+=1; state.bestCombo=Math.max(state.bestCombo,state.combo);
+    bumpSkill(4,4); bumpSkill(0,2); clearRevenge('flash',session.flashIndex);
+    fb.className='feedback show good'; fb.innerHTML='<strong>ナイス初手！</strong><br><span class="fb-body"></span>'; renderRich(fb.querySelector('.fb-body'), chosen.reason);
+    award(xp,'初手フラッシュ突破',`${state.combo}コンボ`);
+  } else {
+    const right=item.options.find(o=>o.correct);
+    enqueueRevenge('flash',session.flashIndex); failAttempt(); updateStats();
+    fb.className='feedback show bad'; fb.innerHTML='<strong>惜しい！</strong> <span class="fb-body"></span><br><strong>最適解：</strong> <span class="fb-right"></span>';
+    renderRich(fb.querySelector('.fb-body'), chosen.reason); renderRich(fb.querySelector('.fb-right'), `${right.text}（${right.reason}）`);
+  }
+}
+function handleFlashTimeout(){
+  session.flashAnswered=true; markFlashOptions(-1); enqueueRevenge('flash',session.flashIndex); failAttempt(); updateStats();
+  const right=session.currentFlash.options.find(o=>o.correct), fb=$('flFeedback');
+  fb.className='feedback show warn'; fb.innerHTML='<strong>時間切れ！</strong> 最適解は <span class="fb-right"></span> でした。';
+  renderRich(fb.querySelector('.fb-right'), `${right.text}（${right.reason}）`);
+}
+
+// ---------- Debug ----------
+function loadDebug(){
+  const idx=currentIndex('debug'); session.debugIndex=idx; session.debugLine=null; session.debugReasonDone=false; session.debugFinished=false; session.debugWrongLines=0;
+  const item=currentList('debug')[idx]; session.currentDebug=item;
+  $('dbCounter').textContent=`${idx+1} / ${currentList('debug').length}`;
+  $('dbProblem').innerHTML='<strong>問題：</strong> <span id="dbProblemText"></span>';
+  renderRich($('dbProblemText'), item.problem);
+  $('dbFeedback').className='feedback'; $('dbFeedback').innerHTML='';
+  $('dbReasonBox').className='reason-box'; $('dbCorrection').className='correction'; $('dbCorrectionInput').value='';
+  const box=$('dbLines'); box.innerHTML='';
+  item.lines.forEach(line=>{
+    const b=document.createElement('button'); b.type='button'; b.className='line-btn'; b.dataset.line=line.id;
+    renderRich(b,line.text);
+    b.addEventListener('click',()=>handleDebugLine(line.id)); box.appendChild(b);
+  });
+}
+function handleDebugLine(lineId){
+  if (session.debugReasonDone) return;
+  const item=session.currentDebug, fb=$('dbFeedback');
+  document.querySelectorAll('.line-btn').forEach(b=>b.classList.toggle('selected',Number(b.dataset.line)===lineId));
+  if (lineId!==item.bugLine){
+    session.debugWrongLines++;
+    fb.className='feedback show warn'; fb.textContent='その行の変形自体は問題ありません。別の行に「暗黙の仮定」や「符号・条件の落とし穴」が隠れています。';
+    playError(); return;
+  }
+  session.debugLine=lineId; fb.className='feedback'; fb.innerHTML='';
+  $('dbReasonBox').className='reason-box show';
+  session.debugReasons=shuffleArray(item.reasons);
+  const box=$('dbReasons'); box.innerHTML='';
+  session.debugReasons.forEach((reason,i)=>{
+    const b=document.createElement('button'); b.type='button'; b.className='option';
+    renderRich(b,reason.text);
+    b.addEventListener('click',()=>handleDebugReason(i)); box.appendChild(b);
+  });
+  playClick();
+}
+function handleDebugReason(i){
+  if (session.debugReasonDone) return;
+  const item=session.currentDebug, reason=session.debugReasons[i], fb=$('dbFeedback');
+  [...$('dbReasons').children].forEach((b,j)=>{ if (j===i && reason.correct) b.classList.add('correct'); if (j===i && !reason.correct) b.classList.add('wrong'); b.disabled=true; });
+  if (!reason.correct){
+    enqueueRevenge('debug',session.debugIndex); failAttempt(); updateStats();
+    fb.className='feedback show bad'; fb.textContent='指摘した行は正解ですが、理由が違います。リベンジキューに入れました。もう一度、行と理由を見直してみましょう。';
+    session.debugReasonDone=false;
+    setTimeout(()=>{ [...$('dbReasons').children].forEach(b=>{b.disabled=false;b.classList.remove('wrong');}); },50);
+    return;
+  }
+  session.debugReasonDone=true; bumpSkill(1,5); bumpSkill(2,2);
+  fb.className='feedback show good'; fb.innerHTML='<strong>デバッグ成功！（+40 XP）</strong> 次に、修正を自分の言葉で書き直して仕上げましょう。';
+  renderRich($('dbExplanation'), item.explanation);
+  $('dbCorrection').className='correction show';
+  award(40,'論証デバッグ撃破', item.problem.replace(/\$/g,'').slice(0,36));
+}
+function finishDebugCorrection(){
+  if (!session.debugReasonDone || session.debugFinished) return;
+  const text=$('dbCorrectionInput').value.trim();
+  const fb=$('dbFeedback');
+  if (text.length<8){ fb.className='feedback show warn'; fb.textContent='修正をもう少し具体的に書いてみましょう（8文字以上）。'; playError(); return; }
+  session.debugFinished=true; clearRevenge('debug',session.debugIndex); bumpSkill(2,2);
+  award(10,'論証デバッグ修正完了','自分の言葉で修正');
+  fb.className='feedback show good'; fb.textContent='修正まで完了しました。穴を「見つける→理由を言う→直す」までが1セットです。';
+}
+
+// ---------- Events ----------
+function nextItem(mode){ state.indices[state.track][mode]++; saveState(); loadMode(mode); }
+function init(){
+  $('versionText').textContent=APP_VERSION;
+  const palette=['x^2','√x','x/y','≧','≠','θ','π','場合分け','真数条件'];
+  palette.forEach(label=>{ const b=document.createElement('button'); b.type='button'; b.textContent=label; b.addEventListener('click',()=>{ const input=$('spInput'); input.value += (input.value?' ':'')+label.replace('x/y','(分子)/(分母)'); input.focus(); }); $('mathPalette').appendChild(b); });
+  document.querySelectorAll('.track-btn').forEach(b=>b.addEventListener('click',()=>{ playClick(); setTrack(b.dataset.track); }));
+  document.querySelectorAll('.mode-btn').forEach(b=>b.addEventListener('click',()=>{ playClick(); setMode(b.dataset.mode); }));
+  $('startBtn').addEventListener('click',()=>{ playClick(); $('appMain').scrollIntoView({behavior:'smooth'}); });
+  $('heroDebugBtn').addEventListener('click',()=>{ setMode('debug'); $('appMain').scrollIntoView({behavior:'smooth'}); });
+  $('soundToggle').addEventListener('click',()=>{ muted=!muted; saveMuted(); updateSoundButton(); if (!muted) playClick(); });
+  $('updateBtn').addEventListener('click',()=>{ const url=new URL(location.href); url.searchParams.set('v',APP_VERSION); url.searchParams.set('updated',Date.now()); location.href=url.toString(); });
+  $('spForm').addEventListener('submit',e=>{ e.preventDefault(); const v=$('spInput').value; $('spInput').value=''; handleSparringTurn(v); });
+  document.querySelectorAll('.hint-btn').forEach(b=>b.addEventListener('click',()=>{
+    const level=Number(b.dataset.hint); session.hintsUsed=Math.max(session.hintsUsed,level);
+    const box=$('spHintBox'); box.className='hint-box show'; renderRich(box, session.currentSparring.hints[level-1]); updateRankPreview(); playClick();
+  }));
+  $('spCompleteBtn').addEventListener('click',()=>{
+    if (session.sparringDone) return; session.sparringDone=true; $('spCompleteBtn').disabled=true;
+    const rank=rankForHints(session.hintsUsed), xp=xpForRank(rank);
+    bumpSkill(2,3); bumpSkill(0,3);
+    appendBubble('ai',`お見事！ランク ${rank} で自力突破しました（+${xp} XP）。この調子で「別の問題へ」進みましょう。`);
+    award(xp, session.currentSparring.unit, `ランク${rank}`);
+  });
+  $('spNextBtn').addEventListener('click',()=>nextItem('sparring'));
+  $('flNextBtn').addEventListener('click',()=>nextItem('flash'));
+  $('dbNextBtn').addEventListener('click',()=>nextItem('debug'));
+  $('dbFinishBtn').addEventListener('click',finishDebugCorrection);
+  $('resetBtn').addEventListener('click',()=>{ if (!confirm('XP・レーダー・リベンジキュー・ログをリセットしますか？')) return; state=defaultState(); saveState(); updateStats(); drawRadar(); renderRevenge(); renderLogs(); setTrack(state.track); setMode(state.mode); });
+  const params=new URLSearchParams(location.search);
+  const requestedTrack=params.get('track'); const requestedMode=params.get('view') || params.get('mode');
+  if (requestedTrack && CURRICULUM[requestedTrack]) state.track=requestedTrack;
+  if (requestedMode && MODE_LABELS[requestedMode]) state.mode=requestedMode;
+  updateSoundButton(); updateStats(); drawRadar(); renderRevenge(); renderLogs();
+  setTrack(state.track); setMode(state.mode);
+  window.__MATHSPARK__={state, session, CURRICULUM, setTrack, setMode, loadSparring, loadFlash, loadDebug, rankForHints, xpForFlash, radarPoints};
+}
+document.addEventListener('DOMContentLoaded', init);
+</script>
+</body>
+</html>
